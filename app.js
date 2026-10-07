@@ -217,9 +217,26 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
   done: "You’re on the list. We’ll be in touch.",
   dup: "You’re already on the list. We’ll be in touch.",
+  empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
   error: "Something went wrong. Please try again.",
 };
+
+const JOINED_KEY = "jarvis-joined";
+const forms = [];
+let busy = false;
+
+function headlineVariant() {
+  return document.documentElement.dataset.headline === "2" ? "2" : "1";
+}
+
+function rememberJoined() {
+  try { localStorage.setItem(JOINED_KEY, "1"); } catch (e) {}
+}
+
+function hasJoined() {
+  try { return localStorage.getItem(JOINED_KEY) === "1"; } catch (e) { return false; }
+}
 
 async function join(email, source) {
   try {
@@ -239,24 +256,42 @@ async function join(email, source) {
   }
 }
 
+function setNavJoined() {
+  const link = document.querySelector(".nav .btn");
+  if (!link) return;
+  link.textContent = "You’re on the list";
+}
+
+function showDone(text) {
+  rememberJoined();
+  setNavJoined();
+  for (const f of forms) f.finish(text);
+}
+
 function waitlist(form) {
   const input = form.querySelector(".field");
   const trap = form.querySelector(".hp");
   const button = form.querySelector("button");
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
+  const fine = form.querySelector(".fine");
   const label = button.textContent;
 
   const finish = (text) => {
     row.hidden = true;
+    if (fine) fine.hidden = true;
     msg.className = "wl-msg ok";
+    msg.tabIndex = -1;
     msg.textContent = text;
   };
   const fail = (text, invalid) => {
     if (invalid) input.setAttribute("aria-invalid", "true");
+    else input.removeAttribute("aria-invalid");
     msg.className = "wl-msg";
     msg.textContent = text;
   };
+
+  forms.push({ form, button, label, finish });
 
   input.addEventListener("input", () => {
     if (!input.hasAttribute("aria-invalid")) return;
@@ -264,30 +299,60 @@ function waitlist(form) {
     msg.textContent = "";
   });
 
+  input.addEventListener("blur", () => {
+    const email = input.value.trim();
+    if (!email || busy) return;
+    if (email.length > 254 || !EMAIL.test(email)) fail(SAY.bad, true);
+  });
+
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    if (button.disabled) return;
+    if (busy) return;
     const email = input.value.trim().toLowerCase();
+    if (!email) {
+      fail(SAY.empty, true);
+      input.focus();
+      return;
+    }
     if (email.length > 254 || !EMAIL.test(email)) {
       fail(SAY.bad, true);
       input.focus();
       return;
     }
-    if (trap.value) return finish(SAY.done);
-    button.disabled = true;
+    if (trap.value) {
+      finish(SAY.done);
+      msg.focus({ preventScroll: true });
+      return;
+    }
+    busy = true;
+    for (const f of forms) {
+      f.button.disabled = true;
+      f.form.setAttribute("aria-busy", "true");
+    }
     button.textContent = "Joining…";
     msg.textContent = "";
-    const result = await join(email, form.dataset.source);
-    button.disabled = false;
-    button.textContent = label;
-    if (result === "done" || result === "dup") return finish(SAY[result]);
+    // Same table and body as before. The source gains "-1" or "-2" so sign-ups show which headline they saw.
+    const result = await join(email, `${form.dataset.source}-${headlineVariant()}`);
+    busy = false;
+    if (result === "done" || result === "dup") {
+      showDone(SAY[result]);
+      msg.focus({ preventScroll: true });
+      return;
+    }
+    for (const f of forms) {
+      f.button.disabled = false;
+      f.button.textContent = f.label;
+      f.form.removeAttribute("aria-busy");
+    }
     fail(SAY[result], result === "bad");
+    input.focus();
   });
 }
 
 // ---------- go ----------
 startUp();
 document.querySelectorAll("form.wl").forEach(waitlist);
+if (hasJoined()) showDone(SAY.done);
 reveals();
 
 const reactors = new Map();

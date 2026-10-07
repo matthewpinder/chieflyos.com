@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="A rounded square with one cyan line">
+  <rect x="7" y="7" width="50" height="50" rx="14" stroke="#F5F5F7" stroke-width="4"/>
+  <path d="M20 42h24" stroke="#38D6FF" stroke-width="5" stroke-linecap="round"/>
+</svg>

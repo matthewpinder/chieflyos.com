@@ -18,6 +18,8 @@ The form posts to the `waitlist` table in the Lovable Cloud project "Chiefly Wai
 
 To see sign-ups, open the Lovable project, then Cloud → Database → `waitlist`.
 
+The page tries two headlines, half and half, and remembers the choice in this browser (`jarvis-headline`). Add `?headline=1` or `?headline=2` to preview one without saving it. The form still posts `{ email, source }` to the same table. `source` is `hero-1`, `hero-2`, `final-1`, or `final-2`: where they signed up, and which headline they saw.
+
 ## At launch
 
 Change the two "Join the waitlist" buttons and the nav pill to "Download", and point them at the installer.

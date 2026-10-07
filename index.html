@@ -23,6 +23,7 @@
   <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="img/jarvis-mark.png" as="image">
   <link rel="stylesheet" href="styles.css">
   <script src="boot.js"></script>
   <script src="app.js" defer></script>
@@ -50,14 +51,20 @@
       <div class="hero-copy">
         <p class="eyebrow rise">Coming soon to Mac and Windows</p>
         <h1 class="display" id="hero-title">
-          <span class="rise d1">Meet Jarvis.</span>
-          <span class="tone rise d2">Your computer’s chief of staff.</span>
+          <span class="hl hl-1">
+            <span class="rise d1">Meet Jarvis.</span>
+            <span class="tone rise d2">Your computer’s chief of staff.</span>
+          </span>
+          <span class="hl hl-2">
+            <span class="rise d1">Your own AI.</span>
+            <span class="tone rise d2">On your own computer.</span>
+          </span>
         </h1>
         <p class="lead rise d3">It lives on your computer, not in someone’s cloud. It remembers what matters, handles the boring stuff, and keeps your business yours.</p>
         <form class="wl rise d4" data-source="hero" novalidate>
           <div class="wl-row">
             <label class="sr-only" for="email-hero">Email address</label>
-            <input class="field" id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="Your email" required aria-describedby="msg-hero">
+            <input class="field" id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-hero">
             <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button class="btn" type="submit">Join the waitlist</button>
           </div>
@@ -133,7 +140,7 @@
       <form class="wl reveal" data-source="final" novalidate>
         <div class="wl-row">
           <label class="sr-only" for="email-join">Email address</label>
-          <input class="field" id="email-join" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="Your email" required aria-describedby="msg-join">
+          <input class="field" id="email-join" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-join">
           <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn" type="submit">Join the waitlist</button>
         </div>
