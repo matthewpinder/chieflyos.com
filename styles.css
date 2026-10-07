@@ -205,6 +205,16 @@ html.js .lines li { color: var(--dim); }
 .glyph .g2 { opacity: .5; }
 .glyph .g3 { opacity: 1; }
 
+/* ---------- 4b. creed ---------- */
+.creed { max-width: 1244px; margin: 0 auto; padding: clamp(72px, 10vh, 120px) var(--gutter) clamp(36px, 6vh, 64px); text-align: center; }
+.creed-lines { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+.creed-lines li {
+  font-size: clamp(22px, 2.4vw, 32px); font-weight: 600; line-height: 1.15; letter-spacing: -.024em;
+  text-wrap: balance;
+}
+.creed-lines li:nth-child(2) { transition-delay: 80ms; }
+.creed-lines li:nth-child(3) { transition-delay: 160ms; }
+
 /* ---------- 5. students ---------- */
 .students { max-width: 1244px; margin: 20px auto 0; padding: 0 var(--gutter); }
 .students-in { padding: clamp(64px, 9vw, 112px) 24px; border-radius: 28px; background: var(--tile); text-align: center; }
@@ -230,7 +240,9 @@ html.js .big .w { color: var(--dim); }
 
 /* ---------- footer ---------- */
 .foot { border-top: 1px solid var(--line); }
-.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; justify-content: space-between; gap: 8px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
+.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
+.foot-brand { display: flex; align-items: center; gap: 8px; }
+.foot-brand img { width: 20px; height: 20px; }
 
 /* ---------- motion ---------- */
 html.js .rise { opacity: 0; transform: translateY(24px); }
@@ -264,6 +276,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
   :root { --gutter: 20px; --nav: 60px; }
   .hero-copy { padding-top: 56px; }
   .wl-row { flex-direction: column; }
+  .creed-lines { grid-template-columns: 1fr; gap: 22px; }
   .field { flex: none; width: 100%; }
   .btn { width: 100%; }
   .btn-sm { width: auto; height: 44px; padding: 0 18px; font-size: 14px; }
