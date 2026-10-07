@@ -39,15 +39,14 @@ function startUp() {
   for (const ev of SKIP) addEventListener(ev, end, { passive: true });
 }
 
-// ---------- the reactor ----------
-// Drawn on a 400×400 space. power 0 = off (grey dashes, still), 1 = on (cyan, turning, core lit).
+// ---------- the mark ----------
+// Drawn on a 400×400 space. power 0 = the J in dim grey, 1 = white stroke and a lit cyan stop.
 class Reactor {
   constructor(canvas, power) {
     this.canvas = canvas;
     this.g = canvas.getContext("2d");
     this.power = power;
     this.live = canvas.hasAttribute("data-live") && !reduce;
-    this.angles = [0.3, 1.1, 2.0];
     this.visible = false;
     this.raf = 0;
     this.last = 0;
@@ -89,49 +88,48 @@ class Reactor {
     this.raf = this.live && this.visible && !document.hidden ? requestAnimationFrame(this.tick) : 0;
   }
 
-  draw(t, dt) {
+  draw(t) {
     const { g, canvas, power: p } = this;
     const s = canvas.width / 400;
-    g.setTransform(1, 0, 0, 1, 0, 0);
-    g.clearRect(0, 0, canvas.width, canvas.height);
     g.setTransform(s, 0, 0, s, 0, 0);
-    g.lineCap = "butt";
+    g.clearRect(0, 0, 400, 400);
 
-    const speed = ramp(0.3, 1, p);
-    for (let i = 0; i < 3; i++) {
-      this.angles[i] += ((dt * speed) / (2600 + i * 900)) * (i % 2 ? -1 : 1);
-      const lit = ramp(i * 0.16, i * 0.16 + 0.3, p);
-      g.strokeStyle = `rgba(${Math.round(mix(255, 56, lit))},${Math.round(mix(255, 214, lit))},255,${mix(0.07, 0.42, lit).toFixed(3)})`;
-      g.lineWidth = 2;
-      const r = 190 - i * 28;
-      for (let k = 0; k < 12; k++) {
-        const a = this.angles[i] + (k * Math.PI) / 6;
-        g.beginPath();
-        g.arc(200, 200, r, a, a + Math.PI / 12);
-        g.stroke();
-      }
-    }
-
-    const ring = ramp(0.5, 0.72, p);
-    g.strokeStyle = `rgba(${Math.round(mix(255, 56, ring))},${Math.round(mix(255, 214, ring))},255,${mix(0.06, 0.7, ring).toFixed(3)})`;
-    g.lineWidth = 3;
+    const lit = ramp(0.04, 0.92, p);
+    const k = 5.15;
+    const ox = 200 - 32 * k;
+    const oy = 200 - 32 * k;
+    const breathe = 1 + 0.045 * Math.sin((t / 4800) * Math.PI * 2) * (this.live ? lit : 0);
+    const sx = ox + 21 * k;
+    const sy = oy + 56 * k;
+    const glow = 72 * breathe;
+    const grad = g.createRadialGradient(sx, sy, 0, sx, sy, glow);
+    grad.addColorStop(0, `rgba(224,248,255,${(0.55 * lit).toFixed(3)})`);
+    grad.addColorStop(0.22, `rgba(56,214,255,${(0.28 * lit).toFixed(3)})`);
+    grad.addColorStop(1, "rgba(56,214,255,0)");
+    g.fillStyle = grad;
     g.beginPath();
-    g.arc(200, 200, 58, 0, Math.PI * 2);
-    g.stroke();
+    g.arc(sx, sy, glow, 0, Math.PI * 2);
+    g.fill();
 
-    const core = ramp(0.62, 1, p);
-    if (core > 0) {
-      const breathe = 1 + 0.04 * Math.sin((t / 5000) * Math.PI * 2) * (this.live ? 1 : 0);
-      const R = 74 * breathe;
-      const grad = g.createRadialGradient(200, 200, 5, 200, 200, R);
-      grad.addColorStop(0, `rgba(224,248,255,${(0.85 * core).toFixed(3)})`);
-      grad.addColorStop(0.4, `rgba(56,214,255,${(0.47 * core).toFixed(3)})`);
-      grad.addColorStop(1, "rgba(56,214,255,0)");
-      g.fillStyle = grad;
-      g.beginPath();
-      g.arc(200, 200, R, 0, Math.PI * 2);
-      g.fill();
-    }
+    g.save();
+    g.translate(ox, oy);
+    g.scale(k, k);
+    g.lineCap = "round";
+    g.lineJoin = "round";
+    g.lineWidth = 7;
+    g.strokeStyle = rgb(DIM, LIT, lit);
+    g.beginPath();
+    g.moveTo(14, 16);
+    g.lineTo(48, 16);
+    g.moveTo(40, 16);
+    g.lineTo(40, 38);
+    g.bezierCurveTo(40, 49, 32, 56, 21, 56);
+    g.stroke();
+    g.fillStyle = `rgba(56,214,255,${mix(0.2, 1, lit).toFixed(3)})`;
+    g.beginPath();
+    g.arc(21, 56, 5.5, 0, Math.PI * 2);
+    g.fill();
+    g.restore();
   }
 }
 

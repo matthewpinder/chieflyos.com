@@ -6,7 +6,7 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 
 - `index.html`: all the copy.
 - `styles.css`: the look (colours and easing at the top).
-- `app.js`: the reactor, the scroll effects and the sign-up form.
+- `app.js`: the mark, the scroll effects and the sign-up form.
 - `boot.js`: decides whether to play the start-up screen (first visit per browser session, never with reduced motion).
 - `img/`: logo, favicon and the share image (`og.png`, 1200×630).
 - `fonts/`: Inter (SIL Open Font License, `OFL.txt`), served from this site.

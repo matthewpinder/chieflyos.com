@@ -1,6 +1,6 @@
 /* Jarvis by Chiefly. One page, no framework.
    The feel: lifting the lid off a new device and switching it on. Pure black, big type,
-   one product (the reactor), and motion that follows the scroll. Cyan only on the reactor,
+   one product (the J), and motion that follows the scroll. Cyan only on the mark,
    eyebrows and links. */
 
 @font-face {
@@ -181,8 +181,8 @@ html.js .lines li { color: var(--dim); }
 .reactor-wrap { position: relative; width: min(520px, 82vw); aspect-ratio: 1; will-change: transform; }
 .reactor-wrap canvas { position: relative; width: 100%; height: 100%; }
 .bloom {
-  position: absolute; inset: -38%; border-radius: 50%; pointer-events: none; opacity: 0;
-  background: radial-gradient(closest-side, rgba(56, 214, 255, .17), rgba(56, 214, 255, .06) 45%, rgba(56, 214, 255, 0) 100%);
+  position: absolute; width: 42%; height: 42%; left: 14%; top: 62%; border-radius: 50%; pointer-events: none; opacity: 0;
+  background: radial-gradient(closest-side, rgba(56, 214, 255, .22), rgba(56, 214, 255, 0) 72%);
 }
 .bloom.lit { opacity: 1; }
 
