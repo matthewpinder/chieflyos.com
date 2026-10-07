@@ -197,13 +197,6 @@ html.js .lines li { color: var(--dim); }
 .tile .glyph { width: 40px; height: 40px; margin-bottom: auto; }
 .tile h3 { margin-top: 56px; font-size: 28px; font-weight: 600; line-height: 1.14; letter-spacing: -.024em; }
 .tile p { margin-top: 10px; color: var(--text-2); }
-.glyph circle { fill: none; stroke-width: 2; }
-.glyph .g-base { stroke: rgba(255, 255, 255, .12); stroke-dasharray: 3.927 3.927; }
-.glyph .g-lit { stroke: var(--cyan); }
-.glyph .g-core { stroke: none; fill: var(--cyan); }
-.glyph .g1 { opacity: .2; }
-.glyph .g2 { opacity: .5; }
-.glyph .g3 { opacity: 1; }
 
 /* ---------- 4b. creed ---------- */
 .creed { max-width: 1244px; margin: 0 auto; padding: clamp(72px, 10vh, 120px) var(--gutter) clamp(36px, 6vh, 64px); text-align: center; }
