@@ -39,15 +39,14 @@ function startUp() {
   for (const ev of SKIP) addEventListener(ev, end, { passive: true });
 }
 
-// ---------- the reactor ----------
-// Drawn on a 400×400 space. power 0 = off (grey dashes, still), 1 = on (cyan, turning, core lit).
+// ---------- the mark ----------
+// Drawn on a 400×400 space. power 0 = the J in dim grey, 1 = white stroke and a lit cyan stop.
 class Reactor {
   constructor(canvas, power) {
     this.canvas = canvas;
     this.g = canvas.getContext("2d");
     this.power = power;
     this.live = canvas.hasAttribute("data-live") && !reduce;
-    this.angles = [0.3, 1.1, 2.0];
     this.visible = false;
     this.raf = 0;
     this.last = 0;
@@ -89,49 +88,48 @@ class Reactor {
     this.raf = this.live && this.visible && !document.hidden ? requestAnimationFrame(this.tick) : 0;
   }
 
-  draw(t, dt) {
+  draw(t) {
     const { g, canvas, power: p } = this;
     const s = canvas.width / 400;
-    g.setTransform(1, 0, 0, 1, 0, 0);
-    g.clearRect(0, 0, canvas.width, canvas.height);
     g.setTransform(s, 0, 0, s, 0, 0);
-    g.lineCap = "butt";
+    g.clearRect(0, 0, 400, 400);
 
-    const speed = ramp(0.3, 1, p);
-    for (let i = 0; i < 3; i++) {
-      this.angles[i] += ((dt * speed) / (2600 + i * 900)) * (i % 2 ? -1 : 1);
-      const lit = ramp(i * 0.16, i * 0.16 + 0.3, p);
-      g.strokeStyle = `rgba(${Math.round(mix(255, 56, lit))},${Math.round(mix(255, 214, lit))},255,${mix(0.07, 0.42, lit).toFixed(3)})`;
-      g.lineWidth = 2;
-      const r = 190 - i * 28;
-      for (let k = 0; k < 12; k++) {
-        const a = this.angles[i] + (k * Math.PI) / 6;
-        g.beginPath();
-        g.arc(200, 200, r, a, a + Math.PI / 12);
-        g.stroke();
-      }
-    }
-
-    const ring = ramp(0.5, 0.72, p);
-    g.strokeStyle = `rgba(${Math.round(mix(255, 56, ring))},${Math.round(mix(255, 214, ring))},255,${mix(0.06, 0.7, ring).toFixed(3)})`;
-    g.lineWidth = 3;
+    const lit = ramp(0.04, 0.92, p);
+    const k = 5.15;
+    const ox = 200 - 32 * k;
+    const oy = 200 - 32 * k;
+    const breathe = 1 + 0.045 * Math.sin((t / 4800) * Math.PI * 2) * (this.live ? lit : 0);
+    const sx = ox + 21 * k;
+    const sy = oy + 56 * k;
+    const glow = 72 * breathe;
+    const grad = g.createRadialGradient(sx, sy, 0, sx, sy, glow);
+    grad.addColorStop(0, `rgba(224,248,255,${(0.55 * lit).toFixed(3)})`);
+    grad.addColorStop(0.22, `rgba(56,214,255,${(0.28 * lit).toFixed(3)})`);
+    grad.addColorStop(1, "rgba(56,214,255,0)");
+    g.fillStyle = grad;
     g.beginPath();
-    g.arc(200, 200, 58, 0, Math.PI * 2);
-    g.stroke();
+    g.arc(sx, sy, glow, 0, Math.PI * 2);
+    g.fill();
 
-    const core = ramp(0.62, 1, p);
-    if (core > 0) {
-      const breathe = 1 + 0.04 * Math.sin((t / 5000) * Math.PI * 2) * (this.live ? 1 : 0);
-      const R = 74 * breathe;
-      const grad = g.createRadialGradient(200, 200, 5, 200, 200, R);
-      grad.addColorStop(0, `rgba(224,248,255,${(0.85 * core).toFixed(3)})`);
-      grad.addColorStop(0.4, `rgba(56,214,255,${(0.47 * core).toFixed(3)})`);
-      grad.addColorStop(1, "rgba(56,214,255,0)");
-      g.fillStyle = grad;
-      g.beginPath();
-      g.arc(200, 200, R, 0, Math.PI * 2);
-      g.fill();
-    }
+    g.save();
+    g.translate(ox, oy);
+    g.scale(k, k);
+    g.lineCap = "round";
+    g.lineJoin = "round";
+    g.lineWidth = 7;
+    g.strokeStyle = rgb(DIM, LIT, lit);
+    g.beginPath();
+    g.moveTo(14, 16);
+    g.lineTo(48, 16);
+    g.moveTo(40, 16);
+    g.lineTo(40, 38);
+    g.bezierCurveTo(40, 49, 32, 56, 21, 56);
+    g.stroke();
+    g.fillStyle = `rgba(56,214,255,${mix(0.2, 1, lit).toFixed(3)})`;
+    g.beginPath();
+    g.arc(21, 56, 5.5, 0, Math.PI * 2);
+    g.fill();
+    g.restore();
   }
 }
 
@@ -217,9 +215,26 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
   done: "You’re on the list. We’ll be in touch.",
   dup: "You’re already on the list. We’ll be in touch.",
+  empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
   error: "Something went wrong. Please try again.",
 };
+
+const JOINED_KEY = "jarvis-joined";
+const forms = [];
+let busy = false;
+
+function headlineVariant() {
+  return document.documentElement.dataset.headline === "2" ? "2" : "1";
+}
+
+function rememberJoined() {
+  try { localStorage.setItem(JOINED_KEY, "1"); } catch (e) {}
+}
+
+function hasJoined() {
+  try { return localStorage.getItem(JOINED_KEY) === "1"; } catch (e) { return false; }
+}
 
 async function join(email, source) {
   try {
@@ -239,24 +254,42 @@ async function join(email, source) {
   }
 }
 
+function setNavJoined() {
+  const link = document.querySelector(".nav .btn");
+  if (!link) return;
+  link.textContent = "You’re on the list";
+}
+
+function showDone(text) {
+  rememberJoined();
+  setNavJoined();
+  for (const f of forms) f.finish(text);
+}
+
 function waitlist(form) {
   const input = form.querySelector(".field");
   const trap = form.querySelector(".hp");
   const button = form.querySelector("button");
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
+  const fine = form.querySelector(".fine");
   const label = button.textContent;
 
   const finish = (text) => {
     row.hidden = true;
+    if (fine) fine.hidden = true;
     msg.className = "wl-msg ok";
+    msg.tabIndex = -1;
     msg.textContent = text;
   };
   const fail = (text, invalid) => {
     if (invalid) input.setAttribute("aria-invalid", "true");
+    else input.removeAttribute("aria-invalid");
     msg.className = "wl-msg";
     msg.textContent = text;
   };
+
+  forms.push({ form, button, label, finish });
 
   input.addEventListener("input", () => {
     if (!input.hasAttribute("aria-invalid")) return;
@@ -264,30 +297,60 @@ function waitlist(form) {
     msg.textContent = "";
   });
 
+  input.addEventListener("blur", () => {
+    const email = input.value.trim();
+    if (!email || busy) return;
+    if (email.length > 254 || !EMAIL.test(email)) fail(SAY.bad, true);
+  });
+
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    if (button.disabled) return;
+    if (busy) return;
     const email = input.value.trim().toLowerCase();
+    if (!email) {
+      fail(SAY.empty, true);
+      input.focus();
+      return;
+    }
     if (email.length > 254 || !EMAIL.test(email)) {
       fail(SAY.bad, true);
       input.focus();
       return;
     }
-    if (trap.value) return finish(SAY.done);
-    button.disabled = true;
+    if (trap.value) {
+      finish(SAY.done);
+      msg.focus({ preventScroll: true });
+      return;
+    }
+    busy = true;
+    for (const f of forms) {
+      f.button.disabled = true;
+      f.form.setAttribute("aria-busy", "true");
+    }
     button.textContent = "Joining…";
     msg.textContent = "";
-    const result = await join(email, form.dataset.source);
-    button.disabled = false;
-    button.textContent = label;
-    if (result === "done" || result === "dup") return finish(SAY[result]);
+    // Same table and body as before. The source gains "-1" or "-2" so sign-ups show which headline they saw.
+    const result = await join(email, `${form.dataset.source}-${headlineVariant()}`);
+    busy = false;
+    if (result === "done" || result === "dup") {
+      showDone(SAY[result]);
+      msg.focus({ preventScroll: true });
+      return;
+    }
+    for (const f of forms) {
+      f.button.disabled = false;
+      f.button.textContent = f.label;
+      f.form.removeAttribute("aria-busy");
+    }
     fail(SAY[result], result === "bad");
+    input.focus();
   });
 }
 
 // ---------- go ----------
 startUp();
 document.querySelectorAll("form.wl").forEach(waitlist);
+if (hasJoined()) showDone(SAY.done);
 reveals();
 
 const reactors = new Map();

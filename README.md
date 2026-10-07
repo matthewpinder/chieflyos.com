@@ -6,7 +6,7 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 
 - `index.html`: all the copy.
 - `styles.css`: the look (colours and easing at the top).
-- `app.js`: the reactor, the scroll effects and the sign-up form.
+- `app.js`: the mark, the scroll effects and the sign-up form.
 - `boot.js`: decides whether to play the start-up screen (first visit per browser session, never with reduced motion).
 - `img/`: logo, favicon and the share image (`og.png`, 1200×630).
 - `fonts/`: Inter (SIL Open Font License, `OFL.txt`), served from this site.
@@ -17,6 +17,8 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 The form posts to the `waitlist` table in the Lovable Cloud project "Chiefly Waitlist". The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
 To see sign-ups, open the Lovable project, then Cloud → Database → `waitlist`.
+
+The page tries two headlines, half and half, and remembers the choice in this browser (`jarvis-headline`). Add `?headline=1` or `?headline=2` to preview one without saving it. The form still posts `{ email, source }` to the same table. `source` is `hero-1`, `hero-2`, `final-1`, or `final-2`: where they signed up, and which headline they saw.
 
 ## At launch
 

@@ -20,16 +20,18 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Meet Jarvis. Your computer’s chief of staff.">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="img/jarvis-mark.svg" type="image/svg+xml">
   <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="img/jarvis-mark.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="boot.js"></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <div class="boot" aria-hidden="true">
-    <img src="img/jarvis-mark.png" alt="" width="64" height="64">
+    <img src="img/jarvis-mark.svg" alt="" width="64" height="64">
     <div class="boot-bar"><i></i></div>
   </div>
 
@@ -38,7 +40,7 @@
   <header class="nav">
     <div class="nav-in">
       <a class="brand" href="#top" aria-label="Jarvis by Chiefly, back to top">
-        <img src="img/jarvis-mark.png" alt="" width="20" height="20">
+        <img src="img/jarvis-mark.svg" alt="" width="20" height="20">
         <span>Jarvis</span>
       </a>
       <a class="btn btn-sm" href="#join">Join the waitlist</a>
@@ -50,14 +52,20 @@
       <div class="hero-copy">
         <p class="eyebrow rise">Coming soon to Mac and Windows</p>
         <h1 class="display" id="hero-title">
-          <span class="rise d1">Meet Jarvis.</span>
-          <span class="tone rise d2">Your computer’s chief of staff.</span>
+          <span class="hl hl-1">
+            <span class="rise d1">Meet Jarvis.</span>
+            <span class="tone rise d2">Your computer’s chief of staff.</span>
+          </span>
+          <span class="hl hl-2">
+            <span class="rise d1">Your own AI.</span>
+            <span class="tone rise d2">On your own computer.</span>
+          </span>
         </h1>
         <p class="lead rise d3">It lives on your computer, not in someone’s cloud. It remembers what matters, handles the boring stuff, and keeps your business yours.</p>
         <form class="wl rise d4" data-source="hero" novalidate>
           <div class="wl-row">
             <label class="sr-only" for="email-hero">Email address</label>
-            <input class="field" id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="Your email" required aria-describedby="msg-hero">
+            <input class="field" id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-hero">
             <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button class="btn" type="submit">Join the waitlist</button>
           </div>
@@ -109,6 +117,15 @@
       </div>
     </section>
 
+    <section class="creed" aria-labelledby="creed-title">
+      <h2 class="eyebrow" id="creed-title">What we stand for</h2>
+      <ul class="creed-lines">
+        <li class="reveal">People before profit.</li>
+        <li class="reveal">You own it. You don’t rent it.</li>
+        <li class="reveal">It works for you, and only you.</li>
+      </ul>
+    </section>
+
     <section class="students" aria-labelledby="students-title">
       <div class="students-in reveal">
         <p class="eyebrow">For students</p>
@@ -133,7 +150,7 @@
       <form class="wl reveal" data-source="final" novalidate>
         <div class="wl-row">
           <label class="sr-only" for="email-join">Email address</label>
-          <input class="field" id="email-join" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="Your email" required aria-describedby="msg-join">
+          <input class="field" id="email-join" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-join">
           <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn" type="submit">Join the waitlist</button>
         </div>
@@ -145,7 +162,7 @@
 
   <footer class="foot">
     <div class="foot-in">
-      <p>© 2026 Chiefly. Built for humans.</p>
+      <p class="foot-brand"><img src="img/jarvis-mark.svg" alt="" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
       <p>Jarvis by Chiefly</p>
     </div>
   </footer>

@@ -1,6 +1,6 @@
 /* Jarvis by Chiefly. One page, no framework.
    The feel: lifting the lid off a new device and switching it on. Pure black, big type,
-   one product (the reactor), and motion that follows the scroll. Cyan only on the reactor,
+   one product (the J), and motion that follows the scroll. Cyan only on the mark,
    eyebrows and links. */
 
 @font-face {
@@ -24,6 +24,7 @@
   --ease: cubic-bezier(.28, .11, .32, 1);
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --gutter: 22px;
+  --nav: 48px;
   color-scheme: dark;
 }
 
@@ -62,6 +63,8 @@ a { color: inherit; }
   text-wrap: balance;
 }
 .display span { display: block; }
+html[data-headline="2"] .hl-1,
+html:not([data-headline="2"]) .hl-2 { display: none; }
 .tone { color: var(--text-2); }
 .headline {
   font-size: clamp(36px, 5.4vw, 64px);
@@ -137,7 +140,7 @@ html.boot-out .boot { opacity: 0; pointer-events: none; }
 
 /* ---------- nav ---------- */
 .nav {
-  position: sticky; top: 0; z-index: 20; height: 48px;
+  position: sticky; top: 0; z-index: 20; height: var(--nav);
   background: rgba(0, 0, 0, .72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
@@ -149,8 +152,8 @@ html.boot-out .boot { opacity: 0; pointer-events: none; }
 
 /* ---------- 1. hero: the closed box ---------- */
 .hero {
-  min-height: calc(100vh - 48px);
-  min-height: calc(100svh - 48px);
+  min-height: calc(100vh - var(--nav));
+  min-height: calc(100svh - var(--nav));
   display: flex; flex-direction: column; align-items: center;
   padding: 0 var(--gutter);
   text-align: center;
@@ -178,8 +181,8 @@ html.js .lines li { color: var(--dim); }
 .reactor-wrap { position: relative; width: min(520px, 82vw); aspect-ratio: 1; will-change: transform; }
 .reactor-wrap canvas { position: relative; width: 100%; height: 100%; }
 .bloom {
-  position: absolute; inset: -38%; border-radius: 50%; pointer-events: none; opacity: 0;
-  background: radial-gradient(closest-side, rgba(56, 214, 255, .17), rgba(56, 214, 255, .06) 45%, rgba(56, 214, 255, 0) 100%);
+  position: absolute; width: 42%; height: 42%; left: 14%; top: 62%; border-radius: 50%; pointer-events: none; opacity: 0;
+  background: radial-gradient(closest-side, rgba(56, 214, 255, .22), rgba(56, 214, 255, 0) 72%);
 }
 .bloom.lit { opacity: 1; }
 
@@ -202,6 +205,16 @@ html.js .lines li { color: var(--dim); }
 .glyph .g2 { opacity: .5; }
 .glyph .g3 { opacity: 1; }
 
+/* ---------- 4b. creed ---------- */
+.creed { max-width: 1244px; margin: 0 auto; padding: clamp(72px, 10vh, 120px) var(--gutter) clamp(36px, 6vh, 64px); text-align: center; }
+.creed-lines { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+.creed-lines li {
+  font-size: clamp(22px, 2.4vw, 32px); font-weight: 600; line-height: 1.15; letter-spacing: -.024em;
+  text-wrap: balance;
+}
+.creed-lines li:nth-child(2) { transition-delay: 80ms; }
+.creed-lines li:nth-child(3) { transition-delay: 160ms; }
+
 /* ---------- 5. students ---------- */
 .students { max-width: 1244px; margin: 20px auto 0; padding: 0 var(--gutter); }
 .students-in { padding: clamp(64px, 9vw, 112px) 24px; border-radius: 28px; background: var(--tile); text-align: center; }
@@ -221,13 +234,15 @@ html.js .lines li { color: var(--dim); }
 html.js .big .w { color: var(--dim); }
 
 /* ---------- 7. join: the product, switched on ---------- */
-.join { overflow: hidden; padding: clamp(40px, 6vh, 80px) var(--gutter) clamp(120px, 18vh, 200px); text-align: center; }
+.join { overflow: hidden; scroll-margin-top: var(--nav); padding: clamp(40px, 6vh, 80px) var(--gutter) clamp(120px, 18vh, 200px); text-align: center; }
 .reactor-wrap.small { width: min(260px, 60vw); margin: 0 auto 56px; }
 .join .lead { margin-top: 14px; }
 
 /* ---------- footer ---------- */
 .foot { border-top: 1px solid var(--line); }
-.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; justify-content: space-between; gap: 8px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
+.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
+.foot-brand { display: flex; align-items: center; gap: 8px; }
+.foot-brand img { width: 20px; height: 20px; }
 
 /* ---------- motion ---------- */
 html.js .rise { opacity: 0; transform: translateY(24px); }
@@ -258,12 +273,13 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .tile h3 { margin-top: 40px; }
 }
 @media (max-width: 734px) {
-  :root { --gutter: 20px; }
+  :root { --gutter: 20px; --nav: 60px; }
   .hero-copy { padding-top: 56px; }
   .wl-row { flex-direction: column; }
+  .creed-lines { grid-template-columns: 1fr; gap: 22px; }
   .field { flex: none; width: 100%; }
   .btn { width: 100%; }
-  .btn-sm { width: auto; height: 32px; }
+  .btn-sm { width: auto; height: 44px; padding: 0 18px; font-size: 14px; }
   .power { height: 160vh; }
   .tile { padding: 32px 28px; border-radius: 24px; }
   .tile h3 { font-size: 24px; }
