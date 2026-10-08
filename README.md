@@ -5,6 +5,7 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 ## Files
 
 - `index.html`: all the copy.
+- `llms.txt`: a short description for answer engines. Outcomes only.
 - `styles.css`: the look (colours and easing at the top).
 - `app.js`: the mark, the scroll effects and the sign-up form.
 - `boot.js`: decides whether to play the start-up screen (first visit per browser session, never with reduced motion).
