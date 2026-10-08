@@ -63,7 +63,7 @@ a { color: inherit; }
   text-wrap: balance;
 }
 .display span { display: block; }
-html[data-headline="2"] .hl-1,
+html[data-headline="2"]:has(.hl-2) .hl-1,
 html:not([data-headline="2"]) .hl-2 { display: none; }
 .tone { color: var(--text-2); }
 .headline {

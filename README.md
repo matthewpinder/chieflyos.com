@@ -9,7 +9,9 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 - `styles.css`: the look (colours and easing at the top).
 - `app.js`: the mark, the scroll effects and the sign-up form.
 - `boot.js`: decides whether to play the start-up screen (first visit per browser session, never with reduced motion).
-- `img/`: logo, favicon and the share image (`og.png`, 1200×630).
+- `img/`: logo and favicon. The share image is `og-card.png` (1200×630) at the site root.
+- `headline.js`: shows the second headline only in the browser, after the page has chosen one.
+- `sitemap.xml`: the public page. `robots.txt` points at it.
 - `fonts/`: Inter (SIL Open Font License, `OFL.txt`), served from this site.
 - `CNAME`: the custom domain.
 

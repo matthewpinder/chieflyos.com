@@ -17,8 +17,11 @@
   var headline = "1";
   try {
     var preview = new URLSearchParams(location.search).get("headline");
+    var crawler = /bot|crawler|spider|slurp|facebookexternalhit|embedly|slack|discord|whatsapp|telegram|linkedin|pinterest|reddit/i.test(navigator.userAgent);
     if (preview === "1" || preview === "2") {
       headline = preview;
+    } else if (crawler) {
+      headline = "1";
     } else {
       var stored = localStorage.getItem("jarvis-headline");
       if (stored === "1" || stored === "2") headline = stored;
@@ -29,5 +32,4 @@
     }
   } catch (e) {}
   root.dataset.headline = headline;
-  if (headline === "2") document.title = "Jarvis by Chiefly — Your own AI. On your own computer.";
 })();
