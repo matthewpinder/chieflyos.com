@@ -160,7 +160,7 @@ html.boot-out .boot { opacity: 0; pointer-events: none; }
   overflow: hidden;
 }
 .hero-copy { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; padding: 72px 0 40px; }
-.hero .lead { max-width: 40ch; margin-top: 24px; }
+.hero .lead { max-width: 46ch; margin-top: 24px; }
 .peek { --s: min(620px, 92vw); width: var(--s); height: calc(var(--s) * .36); overflow: hidden; flex: none; }
 .peek canvas { width: var(--s); height: var(--s); }
 
