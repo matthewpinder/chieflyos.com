@@ -2,8 +2,8 @@
 
 // Sign-ups go to the waitlist table. This is the publishable key: it can only add an email.
 // Nobody can read, change or delete the list with it (row-level security, insert only).
-const WAITLIST_URL = "https://bxnavqtqcyrwmhqxjozo.supabase.co/rest/v1/waitlist";
-const WAITLIST_KEY = "sb_publishable_I_EwFefK-abwVLJJj0lPzQ_aWjRVuUL";
+const WAITLIST_URL = "https://lvypvstiaqwjtprhjmdo.supabase.co/rest/v1/waitlist";
+const WAITLIST_KEY = "sb_publishable_I2SqefcoVOu-qHRmzTexhw_2ClL2aTR";
 
 const root = document.documentElement;
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

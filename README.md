@@ -14,9 +14,9 @@ The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no 
 
 ## Sign-ups
 
-The form posts to the `waitlist` table in the Lovable Cloud project "Chiefly Waitlist". The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
+The form posts to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
-To see sign-ups, open the Lovable project, then Cloud → Database → `waitlist`.
+To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
 The page tries two headlines, half and half, and remembers the choice in this browser (`jarvis-headline`). Add `?headline=1` or `?headline=2` to preview one without saving it. The form still posts `{ email, source }` to the same table. `source` is `hero-1`, `hero-2`, `final-1`, or `final-2`: where they signed up, and which headline they saw.
 
