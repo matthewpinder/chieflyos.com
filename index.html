@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Jarvis by Chiefly — Your computer’s chief of staff</title>
-  <meta name="description" content="Jarvis is your computer’s chief of staff. It remembers what matters, handles the boring stuff, and keeps your business yours. It lives on your computer, not in someone’s cloud.">
+  <title>Chiefly — Your personal chief of staff, living on your computer</title>
+  <meta name="description" content="Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.">
+  <meta name="robots" content="index, follow">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://lvypvstiaqwjtprhjmdo.supabase.co; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#000000">
@@ -14,18 +15,18 @@
   <meta property="og:url" content="https://chieflyos.com/">
   <meta property="og:site_name" content="Chiefly">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Jarvis by Chiefly — Your computer’s chief of staff">
-  <meta property="og:description" content="Jarvis is your computer’s chief of staff. It remembers what matters, handles the boring stuff, and keeps your business yours. It lives on your computer, not in someone’s cloud.">
-  <meta property="og:image" content="https://chieflyos.com/img/og.png">
+  <meta property="og:title" content="Chiefly — Your personal chief of staff, living on your computer">
+  <meta property="og:description" content="Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.">
+  <meta property="og:image" content="https://chieflyos.com/og-card.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Meet Jarvis. Your computer’s chief of staff.">
+  <meta property="og:image:alt" content="Chiefly — Your personal chief of staff, living on your computer">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Jarvis by Chiefly — Your computer’s chief of staff">
-  <meta name="twitter:description" content="Jarvis is your computer’s chief of staff. It remembers what matters, handles the boring stuff, and keeps your business yours. It lives on your computer, not in someone’s cloud.">
-  <meta name="twitter:image" content="https://chieflyos.com/img/og.png">
-  <meta name="twitter:image:alt" content="Meet Jarvis. Your computer’s chief of staff.">
+  <meta name="twitter:title" content="Chiefly — Your personal chief of staff, living on your computer">
+  <meta name="twitter:description" content="Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.">
+  <meta name="twitter:image" content="https://chieflyos.com/og-card.png">
+  <meta name="twitter:image:alt" content="Chiefly — Your personal chief of staff, living on your computer">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,29 +35,18 @@
         "@type": "Organization",
         "@id": "https://chieflyos.com/#chiefly",
         "name": "Chiefly",
-        "url": "https://chieflyos.com/"
+        "url": "https://chieflyos.com/",
+        "logo": "https://chieflyos.com/img/jarvis-mark.svg",
+        "description": "Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.",
+        "sameAs": ["https://github.com/matthewpinder"]
       },
       {
         "@type": "WebSite",
         "@id": "https://chieflyos.com/#website",
-        "name": "Jarvis by Chiefly",
+        "name": "Chiefly",
         "url": "https://chieflyos.com/",
-        "description": "Jarvis is your computer’s chief of staff. It remembers what matters, handles the boring stuff, and keeps your business yours. It lives on your computer, not in someone’s cloud.",
+        "description": "Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.",
         "publisher": { "@id": "https://chieflyos.com/#chiefly" }
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "Jarvis",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "macOS, Windows",
-        "url": "https://chieflyos.com/",
-        "description": "Jarvis is your computer’s chief of staff. It remembers what matters, handles the boring stuff, and keeps your business yours. It lives on your computer, not in someone’s cloud.",
-        "publisher": { "@id": "https://chieflyos.com/#chiefly" },
-        "offers": {
-          "@type": "Offer",
-          "availability": "https://schema.org/PreOrder",
-          "url": "https://chieflyos.com/#join"
-        }
       }
     ]
   }
@@ -66,6 +56,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="img/jarvis-mark.svg" as="image" type="image/svg+xml">
+  <link rel="preload" href="headline.js" as="script">
   <link rel="stylesheet" href="styles.css">
   <script src="boot.js"></script>
   <script src="app.js" defer></script>
@@ -81,7 +72,7 @@
   <header class="nav">
     <nav class="nav-in" aria-label="Primary">
       <a class="brand" href="#top" aria-label="Jarvis by Chiefly, back to top">
-        <img src="img/jarvis-mark.svg" alt="" width="20" height="20">
+        <img src="img/jarvis-mark.svg" alt="Chiefly" width="20" height="20">
         <span>Jarvis</span>
       </a>
       <a class="btn btn-sm" href="#join">Join the waitlist</a>
@@ -89,6 +80,7 @@
   </header>
 
   <main>
+    <p class="sr-only">Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.</p>
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow rise">Coming soon to Mac and Windows</p>
@@ -97,11 +89,8 @@
             <span class="rise d1">Meet Jarvis.</span>
             <span class="tone rise d2">Your computer’s chief of staff.</span>
           </span>
-          <span class="hl hl-2">
-            <span class="rise d1">Your own AI.</span>
-            <span class="tone rise d2">On your own computer.</span>
-          </span>
         </h1>
+        <script src="headline.js"></script>
         <p class="lead rise d3">Jarvis is your computer’s chief of staff. It lives on your computer, not in someone’s cloud. It remembers what matters, handles the boring stuff, and keeps your business yours.</p>
         <form class="wl rise d4" data-source="hero" novalidate>
           <div class="wl-row">
@@ -203,7 +192,7 @@
 
   <footer class="foot">
     <div class="foot-in">
-      <p class="foot-brand"><img src="img/jarvis-mark.svg" alt="" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
+      <p class="foot-brand"><img src="img/jarvis-mark.svg" alt="Chiefly" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
       <p>Jarvis by Chiefly</p>
     </div>
   </footer>
