@@ -233,12 +233,27 @@ function hasJoined() {
   try { return localStorage.getItem(JOINED_KEY) === "1"; } catch (e) { return false; }
 }
 
+function campaignField(name) {
+  try {
+    const value = new URLSearchParams(location.search).get(name);
+    if (!value) return "";
+    return value.trim().slice(0, 200);
+  } catch (e) {
+    return "";
+  }
+}
+
 async function join(email, source) {
+  const row = { email, source };
+  const utmSource = campaignField("utm_source");
+  const utmContent = campaignField("utm_content");
+  if (utmSource) row.utm_source = utmSource;
+  if (utmContent) row.utm_content = utmContent;
   try {
     const res = await fetch(WAITLIST_URL, {
       method: "POST",
       headers: { apikey: WAITLIST_KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
-      body: JSON.stringify({ email, source }),
+      body: JSON.stringify(row),
       signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(15000) : undefined,
     });
     if (res.ok) return "done";

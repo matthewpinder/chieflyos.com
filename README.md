@@ -16,7 +16,7 @@ The waitlist page for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Sign-ups
 
-The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final`, for which form they used. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
+The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final`, for which form they used. If the page URL has `utm_source` or `utm_content`, those are saved on the same row. They are optional. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 

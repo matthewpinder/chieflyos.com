@@ -232,6 +232,22 @@ html.js .lines li { color: var(--dim); }
 }
 html.js .big .w { color: var(--dim); }
 
+/* ---------- 6b. founders ---------- */
+.founders { max-width: 820px; margin: 0 auto; padding: clamp(80px, 12vh, 140px) var(--gutter) clamp(48px, 8vh, 80px); text-align: center; }
+.founders .headline { margin-bottom: clamp(36px, 6vh, 56px); }
+.prices { display: grid; gap: 32px; margin: 0 auto; max-width: 28rem; }
+.price { margin: 0; }
+.price-when { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--cyan); }
+.price-amt { display: block; font-size: clamp(28px, 4vw, 44px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; text-wrap: balance; }
+.price-note { display: block; margin-top: 10px; font-size: 15px; color: var(--text-2); }
+.price.later .price-when,
+.price.later .price-amt { color: var(--text-2); }
+.price.later .price-amt { font-size: clamp(22px, 2.6vw, 28px); }
+.founders .lead { max-width: 38ch; margin: 28px auto 0; }
+.founders .wait { margin-top: 16px; }
+.founders a { color: var(--cyan); text-decoration: none; }
+.founders a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---------- 7. join: the product, switched on ---------- */
 .join { overflow: hidden; scroll-margin-top: var(--nav); padding: clamp(40px, 6vh, 80px) var(--gutter) clamp(120px, 18vh, 200px); text-align: center; }
 .reactor-wrap.small { width: min(260px, 60vw); margin: 0 auto 56px; }
