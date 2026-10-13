@@ -1,24 +1,28 @@
 # Chiefly
 
-> Chiefly makes Jarvis, a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.
+> Chiefly is a personal chief of staff that lives on your computer. Local by default, cloud only if you opt in. You pay once, and your Chiefly keeps working, even if we don’t.
 
-Chiefly is the company. Jarvis is the product: a personal chief of staff that lives on your computer.
+Jarvis was the codename. Chiefly is the product: a personal chief of staff that lives on your computer.
 
 The waitlist is open. A private alpha runs in October 2026.
+
+Early believers pay less. Forever. Early access is $199, and $69 for students, which covers 4 years or until graduation. At launch it is $299, and $99 for students. The first 100 buyers are founders, locked at the early price. One payment, never a subscription. Early access isn’t open yet. The waitlist is how you get early access at founder’s pricing.
 
 ## Principles
 
 - You own it. You don’t rent it.
-- It lives on your computer.
-- Privacy by design. It works for you, and only you.
+- Local by default. Cloud only if you opt in.
+- Your Chiefly keeps working, even if we don’t.
+- It works for you, and only you.
 - You can delete it anytime.
 
 ## Names
 
 - Company: Chiefly
-- Product: Jarvis
+- Product: Chiefly
+- Codename: Jarvis
 - Site: https://chieflyos.com/
 
 ## Pages
 
-- [Chiefly](https://chieflyos.com/): the waitlist for Jarvis
+- [Chiefly](https://chieflyos.com/): the waitlist for Chiefly

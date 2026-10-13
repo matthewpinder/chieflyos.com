@@ -40,7 +40,7 @@ function startUp() {
 }
 
 // ---------- the mark ----------
-// Drawn on a 400×400 space. power 0 = the J in dim grey, 1 = white stroke and a lit cyan stop.
+// Drawn on a 400×400 space. power 0 = the C in dim grey, 1 = white stroke and a lit cyan stop.
 class Reactor {
   constructor(canvas, power) {
     this.canvas = canvas;
@@ -99,7 +99,7 @@ class Reactor {
     const ox = 200 - 32 * k;
     const oy = 200 - 32 * k;
     const breathe = 1 + 0.045 * Math.sin((t / 4800) * Math.PI * 2) * (this.live ? lit : 0);
-    const sx = ox + 21 * k;
+    const sx = ox + 44 * k;
     const sy = oy + 56 * k;
     const glow = 72 * breathe;
     const grad = g.createRadialGradient(sx, sy, 0, sx, sy, glow);
@@ -119,15 +119,16 @@ class Reactor {
     g.lineWidth = 7;
     g.strokeStyle = rgb(DIM, LIT, lit);
     g.beginPath();
-    g.moveTo(14, 16);
-    g.lineTo(48, 16);
-    g.moveTo(40, 16);
-    g.lineTo(40, 38);
-    g.bezierCurveTo(40, 49, 32, 56, 21, 56);
+    g.moveTo(48, 16);
+    g.lineTo(33, 16);
+    g.bezierCurveTo(22, 16, 14, 23, 14, 34);
+    g.lineTo(14, 38);
+    g.bezierCurveTo(14, 49, 22, 56, 33, 56);
+    g.lineTo(44, 56);
     g.stroke();
     g.fillStyle = `rgba(56,214,255,${mix(0.2, 1, lit).toFixed(3)})`;
     g.beginPath();
-    g.arc(21, 56, 5.5, 0, Math.PI * 2);
+    g.arc(44, 56, 5.5, 0, Math.PI * 2);
     g.fill();
     g.restore();
   }
@@ -220,13 +221,9 @@ const SAY = {
   error: "Something went wrong. Please try again.",
 };
 
-const JOINED_KEY = "jarvis-joined";
+const JOINED_KEY = "chiefly-joined";
 const forms = [];
 let busy = false;
-
-function headlineVariant() {
-  return document.documentElement.dataset.headline === "2" ? "2" : "1";
-}
 
 function rememberJoined() {
   try { localStorage.setItem(JOINED_KEY, "1"); } catch (e) {}
@@ -236,12 +233,27 @@ function hasJoined() {
   try { return localStorage.getItem(JOINED_KEY) === "1"; } catch (e) { return false; }
 }
 
+function campaignField(name) {
+  try {
+    const value = new URLSearchParams(location.search).get(name);
+    if (!value) return "";
+    return value.trim().slice(0, 200);
+  } catch (e) {
+    return "";
+  }
+}
+
 async function join(email, source) {
+  const row = { email, source };
+  const utmSource = campaignField("utm_source");
+  const utmContent = campaignField("utm_content");
+  if (utmSource) row.utm_source = utmSource;
+  if (utmContent) row.utm_content = utmContent;
   try {
     const res = await fetch(WAITLIST_URL, {
       method: "POST",
       headers: { apikey: WAITLIST_KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
-      body: JSON.stringify({ email, source }),
+      body: JSON.stringify(row),
       signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(15000) : undefined,
     });
     if (res.ok) return "done";
@@ -329,8 +341,7 @@ function waitlist(form) {
     }
     button.textContent = "Joining…";
     msg.textContent = "";
-    // Same table and body as before. The source gains "-1" or "-2" so sign-ups show which headline they saw.
-    const result = await join(email, `${form.dataset.source}-${headlineVariant()}`);
+    const result = await join(email, form.dataset.source);
     busy = false;
     if (result === "done" || result === "dup") {
       showDone(SAY[result]);
