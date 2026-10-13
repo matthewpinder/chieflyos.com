@@ -221,13 +221,9 @@ const SAY = {
   error: "Something went wrong. Please try again.",
 };
 
-const JOINED_KEY = "jarvis-joined";
+const JOINED_KEY = "chiefly-joined";
 const forms = [];
 let busy = false;
-
-function headlineVariant() {
-  return document.documentElement.dataset.headline === "2" ? "2" : "1";
-}
 
 function rememberJoined() {
   try { localStorage.setItem(JOINED_KEY, "1"); } catch (e) {}
@@ -330,8 +326,7 @@ function waitlist(form) {
     }
     button.textContent = "Joining…";
     msg.textContent = "";
-    // Same table and body as before. The source gains "-1" or "-2" so sign-ups show which headline they saw.
-    const result = await join(email, `${form.dataset.source}-${headlineVariant()}`);
+    const result = await join(email, form.dataset.source);
     busy = false;
     if (result === "done" || result === "dup") {
       showDone(SAY[result]);

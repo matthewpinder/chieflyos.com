@@ -63,8 +63,6 @@ a { color: inherit; }
   text-wrap: balance;
 }
 .display span { display: block; }
-html[data-headline="2"]:has(.hl-2) .hl-1,
-html:not([data-headline="2"]) .hl-2 { display: none; }
 .tone { color: var(--text-2); }
 .headline {
   font-size: clamp(36px, 5.4vw, 64px);
@@ -79,6 +77,14 @@ html:not([data-headline="2"]) .hl-2 { display: none; }
   letter-spacing: -.016em;
   color: var(--text-2);
   text-wrap: balance;
+}
+.story {
+  margin-top: 16px;
+  max-width: 42ch;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -.011em;
+  color: var(--text-2);
 }
 
 /* ---------- controls ---------- */

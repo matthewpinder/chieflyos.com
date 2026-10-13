@@ -1,22 +1,24 @@
 # Chiefly
 
-> Chiefly is a personal chief of staff that lives on your computer. You pay once and it's yours — no subscription, no datacenter watching over your shoulder. It's built for people who want their AI working for them, not for someone else's business model.
+> Chiefly is a personal chief of staff that lives on your computer. Local by default, cloud only if you opt in. You pay once, and your Chiefly keeps working, even if we don’t.
 
-Chiefly is the company and the product: a personal chief of staff that lives on your computer.
+Jarvis was the codename. Chiefly is the product: a personal chief of staff that lives on your computer.
 
 The waitlist is open. A private alpha runs in October 2026.
 
 ## Principles
 
 - You own it. You don’t rent it.
-- It lives on your computer.
-- Privacy by design. It works for you, and only you.
+- Local by default. Cloud only if you opt in.
+- Your Chiefly keeps working, even if we don’t.
+- It works for you, and only you.
 - You can delete it anytime.
 
 ## Names
 
 - Company: Chiefly
 - Product: Chiefly
+- Codename: Jarvis
 - Site: https://chieflyos.com/
 
 ## Pages

@@ -9,19 +9,18 @@ The waitlist page for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 - `styles.css`: the look (colours and easing at the top).
 - `app.js`: the mark, the scroll effects and the sign-up form.
 - `boot.js`: decides whether to play the start-up screen (first visit per browser session, never with reduced motion).
-- `img/`: logo and favicon. The share image is `og-card.png` (1200×630) at the site root.
-- `headline.js`: shows the second headline only in the browser, after the page has chosen one.
+- `img/`: the C mark (`chiefly-mark.svg`) and favicons. The share image is `og-card.png` (1200×630) at the site root.
 - `sitemap.xml`: the public page. `robots.txt` points at it.
 - `fonts/`: Inter (SIL Open Font License, `OFL.txt`), served from this site.
 - `CNAME`: the custom domain.
 
 ## Sign-ups
 
-The form posts to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
+The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final`, for which form they used. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
-The page tries two headlines, half and half, and remembers the choice in this browser (`jarvis-headline`). Add `?headline=1` or `?headline=2` to preview one without saving it. The form still posts `{ email, source }` to the same table. `source` is `hero-1`, `hero-2`, `final-1`, or `final-2`: where they signed up, and which headline they saw.
+The headline is “All clear.”
 
 ## At launch
 
