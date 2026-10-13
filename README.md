@@ -1,6 +1,6 @@
 # chieflyos.com
 
-The waitlist page for **Jarvis by Chiefly**. Plain HTML, CSS and JavaScript: no framework, no build step, no trackers, no third-party requests. GitHub Pages serves it from `main`.
+The waitlist page for **Chiefly**. Plain HTML, CSS and JavaScript: no framework, no build step, no trackers, no third-party requests. GitHub Pages serves it from `main`.
 
 ## Files
 
