@@ -18,7 +18,7 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Sign-ups
 
-The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, `paper` on `/paper`, and `rename` on `/rename`.
+The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, `paper` on `/paper`, `rename` on `/rename`, and `vision` on `/vision`. The migrations in this repo do not put a check constraint on `source`.
 
 Mac, Windows, or Both is optional and starts with nothing selected. When someone picks one, the row also gets `platform` as `mac`, `windows`, or `both`.
 
@@ -28,7 +28,9 @@ When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `
 
 All of those fields are optional. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
-If `utm_medium`, `utm_campaign`, `referrer`, or `platform` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
+If `utm_medium`, `utm_campaign`, `referrer`, `platform`, or `build_with_me` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
+
+`build_with_me` is the optional “Build with me” box. It is sent only when ticked, as boolean `true`. Unticked sends nothing for that field.
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
@@ -78,7 +80,19 @@ $$;
 notify pgrst, 'reload schema';
 ```
 
-Existing insert policies cover the new columns. Sign-ups are a direct insert. There is no signup RPC. Nothing else has to change in the dashboard unless a policy or grant lists columns by name. In that case, add `platform` and leave the policy insert-only.
+`build_with_me` is the same kind of optional column. Run this once so a ticked box is kept. The same statement is in `supabase/migrations/20261015233000_waitlist_build_with_me.sql`. Do not run it from here. Paste it in the Supabase SQL editor.
+
+```sql
+alter table public.waitlist
+  add column if not exists build_with_me boolean;
+
+comment on column public.waitlist.build_with_me is
+  'Optional. True when they opt in to vote on what is next and join early tests. Null if they left the box unticked.';
+
+notify pgrst, 'reload schema';
+```
+
+Existing insert policies cover the new columns. Sign-ups are a direct insert. There is no signup RPC. Nothing else has to change in the dashboard unless a policy or grant lists columns by name. In that case, add `platform` and `build_with_me` and leave the policy insert-only.
 
 ## Homepage slots
 
@@ -89,6 +103,8 @@ The ask-before demo is `#boundary`. It is a sample request, “Send the follow-u
 `/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
+
+`/vision` is where Chiefly is going. No dates. `/leave` is the right to leave: export, then uninstall. Both are public. The logo menu includes Vision and Leave.
 
 ## The LAUNCH flag
 
@@ -102,11 +118,12 @@ While `LAUNCH` is false, these pages are built and can be opened by address, and
 - `/welcome`: after purchase
 - `/terms`: plain language. Legal review needed before it is public.
 - `/support`: contact is `matt@chieflyos.com`. The bug report address is still the placeholder `[bug report email]`
-- `/leave`: export and uninstall
+
+`/leave` is already public. It is in the logo menu, the footer, the sitemap, and it can be indexed. Contact there is `matt@chieflyos.com`.
 
 Set `LAUNCH` to `true` on launch day. Every link whose text is exactly “Join the waitlist” becomes “Get Chiefly”. Paste the Gumroad link into `GET_URL`. Until that link exists, Get Chiefly opens `/download`. The email form button stays “Join the waitlist”, because it still saves an email. A “Privacy” link is not switched.
 
-The same switch shows the footer links Download, Welcome, Terms, Support, and Leave. They are in the HTML with `hidden` until then. Privacy is already shown.
+The same switch shows the footer links Download, Welcome, Terms, and Support. They are in the HTML with `hidden` until then. Privacy and Leave are already shown.
 
 Also, before you call the remaining pages public: remove `noindex` on each one, add them to `sitemap.xml`, and replace `[date of merge]` and `[bug report email]`. Contact is already `matt@chieflyos.com`.
 

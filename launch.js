@@ -1,7 +1,7 @@
 // One switch for launch day. Default is off.
-// While LAUNCH is false, Download, Welcome, Terms, Support, and Leave
+// While LAUNCH is false, Download, Welcome, Terms, and Support
 // stay unlinked, and the buttons still say "Join the waitlist".
-// /privacy is already public. It is linked in the footer and under each form.
+// /privacy and /leave are already public.
 // Set LAUNCH to true, and paste the Gumroad link into GET_URL.
 // See README, "The LAUNCH flag".
 var LAUNCH = false;

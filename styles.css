@@ -131,6 +131,12 @@ a { color: inherit; }
 }
 .wl-msg.ok::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px rgba(56, 214, 255, .7); }
 .fine { margin-top: 14px; font-size: 12px; color: var(--text-2); letter-spacing: 0; }
+.build {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  min-height: 44px; margin-top: 14px; text-align: left;
+  font-size: 15px; line-height: 1.35; color: var(--text-2); cursor: pointer;
+}
+.build input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--cyan); }
 .wl-privacy { margin-top: 2px; }
 .wl-privacy a {
   display: inline-flex; align-items: center; min-height: 44px;
@@ -565,6 +571,17 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .faq-list { display: grid; gap: 32px; }
 .faq-item h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; letter-spacing: -.022em; line-height: 1.25; }
 .faq-item p { margin-top: 8px; color: var(--text-2); }
+
+/* ---------- build with me, and the vision page ---------- */
+.withme { max-width: 720px; margin: 0 auto; padding: clamp(80px, 12vh, 140px) var(--gutter) 0; text-align: center; }
+.withme .lead { max-width: 40ch; margin: 16px auto 0; }
+.road { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 12px; }
+.essay .road h2 { margin: 0; font-size: clamp(22px, 2.5vw, 28px); letter-spacing: -.022em; line-height: 1.2; }
+.road li { padding: 22px 22px 24px; border-radius: 18px; background: var(--tile); }
+.road p { margin: 8px 0 0; }
+.going { list-style: none; margin: 18px 0 0; padding: 0; }
+ol.going { list-style: decimal; padding-left: 1.25em; }
+.going li { padding: 14px 0 0; font-size: 19px; line-height: 1.45; color: var(--text); }
 
 /* ---------- launch pages: large type, one step at a time ---------- */
 .guide p { font-size: 19px; line-height: 1.6; }

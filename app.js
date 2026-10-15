@@ -250,7 +250,7 @@ function hasJoined() {
 
 // Columns added for the marketing start. Sign-ups still succeed if they
 // are not in the table yet: a missing column comes back as PGRST204.
-const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer", "platform"];
+const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer", "platform", "build_with_me"];
 const PLATFORMS = ["mac", "windows", "both"];
 
 function campaignField(name) {
@@ -344,10 +344,16 @@ function dropMissing(row, missing) {
   return true;
 }
 
+function buildWithMe(form) {
+  const box = form && form.querySelector('input[name="build_with_me"]');
+  return !!(box && box.checked);
+}
+
 async function join(email, source, form) {
   const row = { email, source, ...attribution(form) };
   const platform = platformField(form);
   if (platform) row.platform = platform;
+  if (buildWithMe(form)) row.build_with_me = true;
   try {
     let result = await postWaitlist(row);
     for (let tries = 0; result.status === "error" && tries < OPTIONAL_COLUMNS.length; tries++) {
@@ -379,6 +385,7 @@ function waitlist(form) {
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
   const fine = form.querySelector(".fine");
+  const build = form.querySelector(".build");
   const platform = form.querySelector(".platform");
   const share = form.querySelector(".share");
   const shareBtn = form.querySelector(".share-btn");
@@ -388,6 +395,7 @@ function waitlist(form) {
   const finish = (text) => {
     row.hidden = true;
     if (fine) fine.hidden = true;
+    if (build) build.hidden = true;
     if (platform) platform.hidden = true;
     msg.className = "wl-msg ok";
     msg.tabIndex = -1;
