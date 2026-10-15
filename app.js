@@ -235,7 +235,8 @@ function hasJoined() {
 
 // Columns added for the marketing start. Sign-ups still succeed if they
 // are not in the table yet: a missing column comes back as PGRST204.
-const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer"];
+const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer", "platform"];
+const PLATFORMS = ["mac", "windows", "both"];
 
 function campaignField(name) {
   try {
@@ -275,6 +276,13 @@ function attribution(form) {
   const referrer = referrerField();
   if (referrer) row.referrer = referrer;
   return row;
+}
+
+function platformField(form) {
+  const picked = form.querySelector(".platform input:checked");
+  if (!picked) return "";
+  const value = picked.value;
+  return PLATFORMS.includes(value) ? value : "";
 }
 
 function missingColumn(body) {
@@ -323,6 +331,8 @@ function dropMissing(row, missing) {
 
 async function join(email, source, form) {
   const row = { email, source, ...attribution(form) };
+  const platform = platformField(form);
+  if (platform) row.platform = platform;
   try {
     let result = await postWaitlist(row);
     for (let tries = 0; result.status === "error" && tries < OPTIONAL_COLUMNS.length; tries++) {
@@ -350,15 +360,17 @@ function showDone(text) {
 function waitlist(form) {
   const input = form.querySelector(".field");
   const trap = form.querySelector(".hp");
-  const button = form.querySelector("button");
+  const button = form.querySelector("button.btn");
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
   const fine = form.querySelector(".fine");
+  const platform = form.querySelector(".platform");
   const label = button.textContent;
 
   const finish = (text) => {
     row.hidden = true;
     if (fine) fine.hidden = true;
+    if (platform) platform.hidden = true;
     msg.className = "wl-msg ok";
     msg.tabIndex = -1;
     msg.textContent = text;
@@ -427,8 +439,37 @@ function waitlist(form) {
   });
 }
 
+// ---------- ask-before demo (no network) ----------
+function askDemo() {
+  const root = document.querySelector("[data-ask]");
+  if (!root) return;
+  const approve = root.querySelector("[data-approve]");
+  const refuse = root.querySelector("[data-refuse]");
+  const reset = root.querySelector("[data-reset]");
+  const result = root.querySelector("[data-result]");
+  const actions = root.querySelector(".ask-actions");
+  if (!approve || !refuse || !reset || !result || !actions) return;
+
+  const choose = (text) => {
+    result.textContent = text;
+    actions.hidden = true;
+    reset.hidden = false;
+    reset.focus();
+  };
+
+  approve.addEventListener("click", () => choose("Approved. Sent."));
+  refuse.addEventListener("click", () => choose("Refused. Nothing sent. All clear."));
+  reset.addEventListener("click", () => {
+    result.textContent = "";
+    actions.hidden = false;
+    reset.hidden = true;
+    approve.focus();
+  });
+}
+
 // ---------- go ----------
 startUp();
+askDemo();
 document.querySelectorAll("form.wl").forEach(waitlist);
 if (hasJoined()) showDone(SAY.done);
 reveals();

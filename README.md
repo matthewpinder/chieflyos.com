@@ -4,7 +4,7 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Files
 
-- `index.html`: the homepage copy, including founder’s pricing and the refusal-demo slot.
+- `index.html`: the homepage copy, including founder’s pricing and the ask-before demo.
 - `paper/index.html`: placeholder for the philosophy paper (`/paper`).
 - `llms.txt`: a short description for answer engines. Outcomes only.
 - `styles.css`: the look (colours and easing at the top).
@@ -14,11 +14,13 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 - `sitemap.xml`: the public pages. `robots.txt` points at it.
 - `fonts/`: Inter (SIL Open Font License, `OFL.txt`), served from this site.
 - `CNAME`: the custom domain.
-- `supabase/migrations/20261015180300_waitlist_attribution.sql`: columns Matt runs by hand. See below.
+- `supabase/migrations/`: columns Matt runs by hand. See below.
 
 ## Sign-ups
 
-The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, and `paper` on `/paper`.
+The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, `paper` on `/paper`, and `rename` on `/rename`.
+
+Mac, Windows, or Both is optional and starts with nothing selected. When someone picks one, the row also gets `platform` as `mac`, `windows`, or `both`.
 
 When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `utm_campaign`, and `utm_content`. Each is trimmed to 200 characters. Empty values are left off. The `/paper` form always sends `utm_content` as `paper`, so a link with a different `utm_content` does not replace that tag. The other three still come from the URL.
 
@@ -26,7 +28,7 @@ When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `
 
 All of those fields are optional. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
-If `utm_medium`, `utm_campaign`, or `referrer` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
+If `utm_medium`, `utm_campaign`, `referrer`, or `platform` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
@@ -49,13 +51,40 @@ comment on column public.waitlist.referrer is 'Referring origin and path at sign
 notify pgrst, 'reload schema';
 ```
 
-Existing insert policies cover the new columns. Nothing else has to change in the dashboard.
+`platform` is the same kind of optional column. Run this once so a Mac, Windows, or Both choice is kept. The same statement is in `supabase/migrations/20261015213000_waitlist_platform.sql`.
+
+```sql
+alter table public.waitlist
+  add column if not exists platform text;
+
+comment on column public.waitlist.platform is
+  'Optional computer choice at signup: mac, windows, or both. Null if they skipped it.';
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'waitlist_platform_check'
+      and conrelid = 'public.waitlist'::regclass
+  ) then
+    alter table public.waitlist
+      add constraint waitlist_platform_check
+      check (platform is null or platform in ('mac', 'windows', 'both'));
+  end if;
+end
+$$;
+
+notify pgrst, 'reload schema';
+```
+
+Existing insert policies cover the new columns. Sign-ups are a direct insert. There is no signup RPC. Nothing else has to change in the dashboard unless a policy or grant lists columns by name. In that case, add `platform` and leave the policy insert-only.
 
 ## Homepage slots
 
 Founder’s pricing is the section “Launch prices won’t go back down.” Early access is Regular $199 / Student $69. At launch it is Regular $299 / Student $99. There is no buy button.
 
-The refusal demo is `#boundary`, “It asks before it acts.” The slot is a still of a refused invite. A video or GIF can replace `.refusal`. The comment above that slot shows where.
+The ask-before demo is `#boundary`. It is a sample request, “Send the follow-up email to Sam?”, with Approve, Refuse, and Reset. Nothing is sent. It does not use the network.
 
 `/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
 

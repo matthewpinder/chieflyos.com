@@ -166,10 +166,10 @@
   </header>
 
   <main>
-    <p class="sr-only">Chiefly is a personal AI chief of staff. A private AI that runs on your computer: local by default, cloud opt-in. A no-subscription AI assistant. Pay once, and it keeps working, even if we don’t. Updates may stop; your copy keeps working.</p>
+    <p class="sr-only">Pay once, and it keeps working, even if we don’t. Updates may stop; your copy keeps working.</p>
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow rise">Coming soon to Mac and Windows</p>
+        <p class="badge rise">Mac &amp; Windows · One-time purchase · Local by default</p>
         <h1 class="display" id="hero-title">
           <span class="rise d1">All clear.</span>
           <span class="tone rise d2">Your personal AI chief of staff.</span>
@@ -177,6 +177,14 @@
         <p class="lead rise d3">It remembers what matters, handles the boring stuff, and leaves the day clear.</p>
         <p class="story rise d3">Runs on your computer. Asks before it acts.</p>
         <form class="wl rise d4" data-source="hero" novalidate>
+          <fieldset class="platform">
+            <legend>Which computer? <span class="platform-opt">Optional</span></legend>
+            <div class="segs">
+              <label class="seg"><input type="radio" name="platform-hero" value="mac"><span>Mac</span></label>
+              <label class="seg"><input type="radio" name="platform-hero" value="windows"><span>Windows</span></label>
+              <label class="seg"><input type="radio" name="platform-hero" value="both"><span>Both</span></label>
+            </div>
+          </fieldset>
           <div class="wl-row">
             <label class="sr-only" for="email-hero">Email address</label>
             <input class="field" id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-hero">
@@ -215,34 +223,36 @@
       <div class="tiles">
         <article class="tile reveal">
           <img class="glyph" src="img/chiefly-mark.svg" alt="" width="40" height="40">
-          <h3>It does the boring stuff.</h3>
-          <p>Remembers what matters. Keeps your goals in sight.</p>
+          <h3>Clears the noise before you start.</h3>
+          <p>Shows what needs you today and what can wait.</p>
         </article>
         <article class="tile reveal">
           <img class="glyph" src="img/chiefly-mark.svg" alt="" width="40" height="40">
-          <h3>Local by default.</h3>
-          <p>A private AI that runs on your computer. Cloud only if you opt in.</p>
+          <h3>Remembers what matters, on your computer.</h3>
+          <p>Local by default, cloud only if you opt in.</p>
         </article>
         <article class="tile reveal">
           <img class="glyph" src="img/chiefly-mark.svg" alt="" width="40" height="40">
-          <h3>It’s yours.</h3>
-          <p>Pay once. Your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.</p>
+          <h3>Preps the work, waits for your call.</h3>
+          <p>Drafts and organizes, then nothing happens until you say so.</p>
         </article>
       </div>
     </section>
 
     <section class="demo" id="boundary" aria-labelledby="boundary-title">
       <div class="demo-in reveal">
+        <p class="eyebrow">Demo</p>
         <h2 class="headline" id="boundary-title">It asks before it acts.</h2>
-        <p class="lead">Nothing happens until you say so.</p>
-        <!-- Refusal still. A video or GIF can replace .refusal when it’s ready. -->
-        <div class="demo-slot">
-          <div class="refusal">
-            <p class="refusal-note">An invite conflicts with a Friday 4 PM focus block.</p>
-            <p class="refusal-move">Chiefly suggests Tuesday at 11.</p>
-            <p class="refusal-choice"><span>Refused</span></p>
-            <p class="refusal-clear">Nothing sent. All clear.</p>
+        <p class="lead">Nothing on this page is sent. This is a demo.</p>
+        <div class="demo-slot" data-ask>
+          <p class="ask-kicker">Sample request</p>
+          <p class="ask-q" id="ask-q">Send the follow-up email to Sam?</p>
+          <div class="ask-actions">
+            <button class="btn" type="button" data-approve>Approve</button>
+            <button class="btn ask-no" type="button" data-refuse>Refuse</button>
           </div>
+          <p class="ask-result" id="ask-result" data-result role="status" aria-live="polite"></p>
+          <button class="ask-reset" type="button" data-reset hidden>Reset</button>
         </div>
       </div>
     </section>
@@ -265,12 +275,17 @@
       </div>
     </section>
 
-    <section class="students" aria-labelledby="students-title">
-      <div class="students-in reveal">
-        <p class="eyebrow">For students</p>
-        <h2 class="headline" id="students-title">A student one-time AI.</h2>
-        <p class="lead">One payment covers four years, or until graduation. Get it on day one and keep it through school.</p>
-        <a class="more" href="#join">Save my spot</a>
+    <section class="audiences" aria-labelledby="audiences-title">
+      <h2 class="sr-only" id="audiences-title">Who it’s for</h2>
+      <div class="audience-grid">
+        <article class="audience reveal">
+          <h3>For operators &amp; builders</h3>
+          <p>One purchase. No monthly bill. Your work stays on your computer.</p>
+        </article>
+        <article class="audience reveal">
+          <h3>For students</h3>
+          <p>One payment covers through graduation.</p>
+        </article>
       </div>
     </section>
 
@@ -336,6 +351,14 @@
       <h2 class="headline reveal" id="join-title">Be first in line.</h2>
       <p class="lead reveal">We’ll tell you when it’s ready.</p>
       <form class="wl reveal" data-source="final" novalidate>
+        <fieldset class="platform">
+          <legend>Which computer? <span class="platform-opt">Optional</span></legend>
+          <div class="segs">
+            <label class="seg"><input type="radio" name="platform-final" value="mac"><span>Mac</span></label>
+            <label class="seg"><input type="radio" name="platform-final" value="windows"><span>Windows</span></label>
+            <label class="seg"><input type="radio" name="platform-final" value="both"><span>Both</span></label>
+          </div>
+        </fieldset>
         <div class="wl-row">
           <label class="sr-only" for="email-join">Email address</label>
           <input class="field" id="email-join" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-join">

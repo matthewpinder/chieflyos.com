@@ -54,6 +54,12 @@ a { color: inherit; }
 
 /* ---------- type ---------- */
 .eyebrow { font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--cyan); margin-bottom: 14px; }
+.badge {
+  display: inline-block; max-width: 100%; margin: 0 0 18px; padding: 8px 14px;
+  border-radius: 16px; border: 1px solid rgba(56, 214, 255, .4);
+  background: rgba(56, 214, 255, .08); color: var(--cyan);
+  font-size: 14px; font-weight: 600; line-height: 1.35; letter-spacing: -.011em;
+}
 .eyebrow.quiet { color: var(--text-2); }
 .display {
   font-size: clamp(44px, 7.2vw, 84px);
@@ -205,6 +211,7 @@ html.js .lines li { color: var(--dim); }
 .tile h3 { margin-top: 56px; font-size: 28px; font-weight: 600; line-height: 1.14; letter-spacing: -.024em; }
 .tile p { margin-top: 10px; color: var(--text-2); }
 @media (min-width: 1024px) {
+  .tile h3 { min-height: 3.45em; }
   .tile p { min-height: 4.25lh; }
 }
 @media (min-width: 1024px) and (max-width: 1240px) {
@@ -222,10 +229,17 @@ html.js .lines li { color: var(--dim); }
 .creed-lines li:nth-child(2) { transition-delay: 80ms; }
 .creed-lines li:nth-child(3) { transition-delay: 160ms; }
 
-/* ---------- 5. students ---------- */
-.students { max-width: 1244px; margin: 20px auto 0; padding: 0 var(--gutter); }
-.students-in { padding: clamp(64px, 9vw, 112px) 24px; border-radius: 28px; background: var(--tile); text-align: center; }
-.students .lead { max-width: 40ch; margin: 18px auto 0; }
+/* ---------- 5. who it’s for ---------- */
+.audiences { max-width: 1244px; margin: 20px auto 0; padding: 0 var(--gutter); }
+.audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.audience {
+  display: flex; flex-direction: column; padding: clamp(36px, 5vw, 56px);
+  border-radius: 28px; background: var(--tile); text-align: left;
+}
+.audience h3 {
+  font-size: clamp(26px, 3vw, 34px); font-weight: 600; line-height: 1.15; letter-spacing: -.028em;
+}
+.audience p { margin-top: 14px; color: var(--text-2); font-size: 17px; line-height: 1.5; max-width: 36ch; }
 
 /* ---------- 6. vision ---------- */
 .vision {
@@ -256,15 +270,38 @@ html.js .big .w { color: var(--dim); }
   text-align: left;
 }
 .demo-slot img, .demo-slot video { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
-.refusal { display: grid; gap: 14px; }
-.refusal-note { color: var(--text-2); font-size: 15px; line-height: 1.45; }
-.refusal-move { color: var(--text); font-size: clamp(22px, 3vw, 28px); font-weight: 600; line-height: 1.2; letter-spacing: -.024em; }
-.refusal-choice span {
-  display: inline-flex; align-items: center; height: 32px; padding: 0 14px;
-  border-radius: 980px; border: 1px solid rgba(255, 255, 255, .18);
-  font-size: 14px; font-weight: 500; color: var(--text);
+.ask-kicker { color: var(--cyan); font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.ask-q {
+  margin-top: 10px; color: var(--text);
+  font-size: clamp(22px, 3vw, 28px); font-weight: 600; line-height: 1.25; letter-spacing: -.024em;
 }
-.refusal-clear { color: var(--cyan); font-weight: 600; letter-spacing: -.012em; }
+.ask-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.ask-actions .btn { width: auto; min-width: 120px; min-height: 48px; }
+.ask-no { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28); }
+.ask-no:hover { background: rgba(255, 255, 255, .08); }
+.ask-result { margin-top: 18px; color: var(--cyan); font-size: 17px; font-weight: 600; letter-spacing: -.012em; }
+.ask-result:empty { margin-top: 0; }
+.ask-reset {
+  appearance: none; margin-top: 8px; min-height: 44px; padding: 0 2px;
+  border: 0; background: transparent; color: var(--text-2); cursor: pointer;
+  font: 500 15px/1 var(--font); letter-spacing: -.011em;
+}
+.ask-reset:hover { color: var(--text); }
+
+/* ---------- waitlist computer choice ---------- */
+.platform { margin: 0 0 16px; padding: 0; border: 0; min-width: 0; text-align: left; }
+.platform legend { margin-bottom: 8px; padding: 0; font-size: 14px; color: var(--text-2); }
+.platform-opt::before { content: "· "; }
+.segs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.seg {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 8px 10px; border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .12); background: var(--field);
+  color: var(--text); font-size: 15px; font-weight: 500; cursor: pointer;
+}
+.seg input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.seg:has(input:focus-visible) { outline: 2px solid var(--cyan); outline-offset: 3px; }
+.seg:has(input:checked) { background: var(--text); color: #000; border-color: var(--text); }
 
 /* ---------- 4d. #alignment ---------- */
 .alignment { max-width: 760px; margin: 0 auto; padding: clamp(72px, 10vh, 120px) var(--gutter) 0; text-align: center; scroll-margin-top: calc(var(--nav) + 12px); }
@@ -335,7 +372,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
 }
 @media (max-width: 734px) {
   :root { --gutter: 20px; --nav: 60px; }
-  .hero-copy { padding-top: 56px; }
+  .hero-copy { padding-top: 48px; min-height: calc(100svh - var(--nav)); }
   .wl-row { flex-direction: column; }
   .creed-lines { grid-template-columns: 1fr; gap: 22px; }
   .field { flex: none; width: 100%; }
@@ -344,7 +381,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .power { height: 160vh; }
   .tile { padding: 32px 28px; border-radius: 24px; }
   .tile h3 { font-size: 24px; }
-  .students-in { border-radius: 24px; }
+  .audience { border-radius: 24px; }
+  .audience-grid { grid-template-columns: 1fr; }
   .demo-slot { border-radius: 24px; }
   .foot-in { flex-direction: column; align-items: stretch; text-align: center; }
   .foot-brand, .foot-in > p { justify-content: center; }
