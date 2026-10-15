@@ -90,9 +90,27 @@ The ask-before demo is `#boundary`. It is a sample request, “Send the follow-u
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
 
-## At launch
+## The LAUNCH flag
 
-Change the "Join the waitlist" buttons and the nav pill to "Download", and point them at the installer.
+`launch.js` holds one switch: `LAUNCH`. It is `false`.
+
+`/privacy` is already public. The waitlist collects emails, so the page is linked in the footer and under each form, listed in the sitemap, and allowed to be indexed. Legal review is still recommended before those words are treated as final. The page says last updated October 15, 2026. Removal is `matt@chieflyos.com`.
+
+While `LAUNCH` is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap.
+
+- `/download`: the button for this computer, the warning steps, system requirements as TBD
+- `/welcome`: after purchase
+- `/terms`: plain language. Legal review needed before it is public.
+- `/support`: contact is `matt@chieflyos.com`. The bug report address is still the placeholder `[bug report email]`
+- `/leave`: export and uninstall
+
+Set `LAUNCH` to `true` on launch day. Every link whose text is exactly “Join the waitlist” becomes “Get Chiefly”. Paste the Gumroad link into `GET_URL`. Until that link exists, Get Chiefly opens `/download`. The email form button stays “Join the waitlist”, because it still saves an email. A “Privacy” link is not switched.
+
+The same switch shows the footer links Download, Welcome, Terms, Support, and Leave. They are in the HTML with `hidden` until then. Privacy is already shown.
+
+Also, before you call the remaining pages public: remove `noindex` on each one, add them to `sitemap.xml`, and replace `[date of merge]` and `[bug report email]`. Contact is already `matt@chieflyos.com`.
+
+The email form is unchanged by the flag.
 
 ## Check it locally
 
