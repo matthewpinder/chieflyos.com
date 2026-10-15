@@ -233,6 +233,10 @@ function hasJoined() {
   try { return localStorage.getItem(JOINED_KEY) === "1"; } catch (e) { return false; }
 }
 
+// Columns added for the marketing start. Sign-ups still succeed if they
+// are not in the table yet: a missing column comes back as PGRST204.
+const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer"];
+
 function campaignField(name) {
   try {
     const value = new URLSearchParams(location.search).get(name);
@@ -243,24 +247,89 @@ function campaignField(name) {
   }
 }
 
-async function join(email, source) {
-  const row = { email, source };
-  const utmSource = campaignField("utm_source");
-  const utmContent = campaignField("utm_content");
-  if (utmSource) row.utm_source = utmSource;
-  if (utmContent) row.utm_content = utmContent;
+function taggedField(form, name) {
+  if (form && name === "utm_content" && form.dataset.utmContent) {
+    return form.dataset.utmContent.trim().slice(0, 200);
+  }
+  return campaignField(name);
+}
+
+// Origin and path only. Query strings can carry tokens, so they are left off.
+function referrerField() {
   try {
-    const res = await fetch(WAITLIST_URL, {
-      method: "POST",
-      headers: { apikey: WAITLIST_KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
-      body: JSON.stringify(row),
-      signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(15000) : undefined,
-    });
-    if (res.ok) return "done";
-    const body = await res.json().catch(() => ({}));
-    if (res.status === 409 || body.code === "23505") return "dup";
-    if (body.code === "23514") return "bad";
-    return "error";
+    const raw = document.referrer;
+    if (!raw) return "";
+    const url = new URL(raw);
+    return (url.origin + url.pathname).slice(0, 500);
+  } catch (e) {
+    return "";
+  }
+}
+
+function attribution(form) {
+  const row = {};
+  for (const name of ["utm_source", "utm_medium", "utm_campaign", "utm_content"]) {
+    const value = taggedField(form, name);
+    if (value) row[name] = value;
+  }
+  const referrer = referrerField();
+  if (referrer) row.referrer = referrer;
+  return row;
+}
+
+function missingColumn(body) {
+  if (!body) return "";
+  const message = String(body.message || "");
+  if (body.code === "PGRST204") {
+    const found = message.match(/Could not find the '([^']+)' column/);
+    return found ? found[1] : "*";
+  }
+  if (body.code === "42703") {
+    const found = message.match(/column "([^"]+)"/);
+    return found ? found[1] : "*";
+  }
+  return "";
+}
+
+async function postWaitlist(row) {
+  const res = await fetch(WAITLIST_URL, {
+    method: "POST",
+    headers: { apikey: WAITLIST_KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+    body: JSON.stringify(row),
+    signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(15000) : undefined,
+  });
+  if (res.ok) return { status: "done" };
+  const body = await res.json().catch(() => ({}));
+  if (res.status === 409 || body.code === "23505") return { status: "dup" };
+  if (body.code === "23514") return { status: "bad" };
+  return { status: "error", body };
+}
+
+function dropMissing(row, missing) {
+  if (missing === "*") {
+    let dropped = false;
+    for (const key of OPTIONAL_COLUMNS) {
+      if (key in row) {
+        delete row[key];
+        dropped = true;
+      }
+    }
+    return dropped;
+  }
+  if (!OPTIONAL_COLUMNS.includes(missing) || !(missing in row)) return false;
+  delete row[missing];
+  return true;
+}
+
+async function join(email, source, form) {
+  const row = { email, source, ...attribution(form) };
+  try {
+    let result = await postWaitlist(row);
+    for (let tries = 0; result.status === "error" && tries < OPTIONAL_COLUMNS.length; tries++) {
+      if (!dropMissing(row, missingColumn(result.body))) break;
+      result = await postWaitlist(row);
+    }
+    return result.status;
   } catch {
     return "error";
   }
@@ -341,7 +410,7 @@ function waitlist(form) {
     }
     button.textContent = "Joining…";
     msg.textContent = "";
-    const result = await join(email, form.dataset.source);
+    const result = await join(email, form.dataset.source, form);
     busy = false;
     if (result === "done" || result === "dup") {
       showDone(SAY[result]);
@@ -371,10 +440,15 @@ document.querySelectorAll("canvas[data-power]").forEach((c) => {
 
 if (!reduce) {
   const power = document.querySelector(".power");
-  scenes.push(powerScene(power, reactors.get(power.querySelector("canvas"))));
-  scenes.push(linesScene([...document.querySelectorAll(".lines li")]));
-  scenes.push(wordsScene(document.querySelector(".big")));
-  addEventListener("scroll", schedule, { passive: true });
-  addEventListener("resize", schedule);
-  frame();
+  const powerCanvas = power && power.querySelector("canvas");
+  if (powerCanvas && reactors.has(powerCanvas)) scenes.push(powerScene(power, reactors.get(powerCanvas)));
+  const lineItems = [...document.querySelectorAll(".lines li")];
+  if (lineItems.length) scenes.push(linesScene(lineItems));
+  const big = document.querySelector(".big");
+  if (big) scenes.push(wordsScene(big));
+  if (scenes.length) {
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    frame();
+  }
 }
