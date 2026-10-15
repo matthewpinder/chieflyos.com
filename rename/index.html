@@ -78,6 +78,14 @@
       <p class="lead reveal">It is a personal AI chief of staff that runs on your computer. You own it. Local by default, cloud opt-in. It asks before it acts, and it works for you only.</p>
       <p class="lead reveal"><a class="more" href="/">Back to Chiefly</a></p>
       <form class="wl reveal" id="join" data-source="rename" data-utm-content="rename" novalidate>
+        <fieldset class="platform">
+          <legend>Which computer? <span class="platform-opt">Optional</span></legend>
+          <div class="segs">
+            <label class="seg"><input type="radio" name="platform-rename" value="mac"><span>Mac</span></label>
+            <label class="seg"><input type="radio" name="platform-rename" value="windows"><span>Windows</span></label>
+            <label class="seg"><input type="radio" name="platform-rename" value="both"><span>Both</span></label>
+          </div>
+        </fieldset>
         <div class="wl-row">
           <label class="sr-only" for="email-rename">Email address</label>
           <input class="field" id="email-rename" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-rename">
@@ -85,6 +93,10 @@
           <button class="btn" type="submit">Join the waitlist</button>
         </div>
         <p class="wl-msg" id="msg-rename" role="status" aria-live="polite"></p>
+        <div class="share" hidden>
+          <button class="share-btn" type="button">Copy link</button>
+          <p class="share-note" role="status" aria-live="polite"></p>
+        </div>
         <p class="fine">Free to join. We’ll only email you about Chiefly.</p>
       </form>
     </article>
