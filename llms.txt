@@ -34,5 +34,6 @@ Codename Jarvis grew up. Chiefly is the product, and you own it.
 - [Chiefly](https://chieflyos.com/): the waitlist for Chiefly, a personal AI chief of staff
 - [The paper](https://chieflyos.com/paper): the Chiefly philosophy paper. With a professor for review. Coming soon.
 - [Codename Jarvis is now Chiefly](https://chieflyos.com/rename): the codename grew up into the product you own.
+- [Privacy](https://chieflyos.com/privacy): what the website and waitlist collect. The app is local by default, cloud only if you opt in.
 - [Where Chiefly is going](https://chieflyos.com/vision): the direction. A tool, not a god. You own it. Local first. The right to leave.
 - [The right to leave](https://chieflyos.com/leave): export everything, then uninstall. No guilt.

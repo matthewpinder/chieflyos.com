@@ -26,11 +26,15 @@
   <meta name="twitter:title" content="The right to leave — Chiefly">
   <meta name="twitter:description" content="Export everything Chiefly holds, then uninstall it. You do not owe us a reason.">
   <meta name="twitter:image" content="https://chieflyos.com/img/og/home.png">
+  <meta name="twitter:image:alt" content="Chiefly. A personal AI chief of staff.">
   <link rel="icon" href="/img/chiefly-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="preload" href="/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/img/chiefly-mark.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/boot.js"></script>
+  <script src="/launch.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
@@ -48,9 +52,23 @@
           <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
           <span>Chiefly</span>
         </a>
-        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
-      <nav class="menu" id="site-menu" aria-label="Site" hidden><a href="/private-ai-assistant">Private AI assistant</a><a href="/local-chatgpt-alternative">Local ChatGPT alternative</a><a href="/ai-assistant-for-students">For students</a><a href="/asks-before-it-acts">Asks before it acts</a><span class="menu-rule" role="separator"></span><a href="/vision">Vision</a><a href="/paper">Paper</a><a href="/rename">Rename</a><a href="/changelog">Changelog</a><a href="/leave" aria-current="page">Leave</a><a href="/#faq">FAQ</a></nav>
+      <nav class="menu" id="site-menu" aria-label="Site" hidden>
+        <a href="/private-ai-assistant">Private AI assistant</a>
+        <a href="/local-chatgpt-alternative">Local ChatGPT alternative</a>
+        <a href="/ai-assistant-for-students">For students</a>
+        <a href="/asks-before-it-acts">Asks before it acts</a>
+        <span class="menu-rule" role="separator"></span>
+        <a href="/vision">Vision</a>
+        <a href="/paper">Paper</a>
+        <a href="/rename">Rename</a>
+        <a href="/changelog">Changelog</a>
+        <a href="/leave" aria-current="page">Leave</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
       <a class="btn btn-sm" href="/#join">Join the waitlist</a>
     </div>
   </header>
@@ -90,7 +108,7 @@
   <footer class="foot">
     <div class="foot-in">
       <p class="foot-brand"><img src="/img/chiefly-mark.svg" alt="" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
-      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a></nav>
+      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a><a href="/download" data-launch-link hidden>Download</a><a href="/welcome" data-launch-link hidden>Welcome</a><a href="/privacy">Privacy</a><a href="/terms" data-launch-link hidden>Terms</a><a href="/support" data-launch-link hidden>Support</a><a href="/leave" aria-current="page">Leave</a></nav>
       <p>Your personal chief of staff.</p>
     </div>
   </footer>

@@ -34,6 +34,7 @@
   <link rel="preload" href="/img/chiefly-mark.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/boot.js"></script>
+  <script src="/launch.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
@@ -48,12 +49,26 @@
     <div class="nav-in">
       <div class="brand-side">
         <a class="brand" href="/" aria-label="Chiefly, home">
-        <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
-        <span>Chiefly</span>
-      </a>
-        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
+          <span>Chiefly</span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
-      <nav class="menu" id="site-menu" aria-label="Site" hidden><a href="/private-ai-assistant">Private AI assistant</a><a href="/local-chatgpt-alternative" aria-current="page">Local ChatGPT alternative</a><a href="/ai-assistant-for-students">For students</a><a href="/asks-before-it-acts">Asks before it acts</a><span class="menu-rule" role="separator"></span><a href="/vision">Vision</a><a href="/paper">Paper</a><a href="/rename">Rename</a><a href="/changelog">Changelog</a><a href="/leave">Leave</a><a href="/#faq">FAQ</a></nav>
+      <nav class="menu" id="site-menu" aria-label="Site" hidden>
+        <a href="/private-ai-assistant">Private AI assistant</a>
+        <a href="/local-chatgpt-alternative" aria-current="page">Local ChatGPT alternative</a>
+        <a href="/ai-assistant-for-students">For students</a>
+        <a href="/asks-before-it-acts">Asks before it acts</a>
+        <span class="menu-rule" role="separator"></span>
+        <a href="/vision">Vision</a>
+        <a href="/paper">Paper</a>
+        <a href="/rename">Rename</a>
+        <a href="/changelog">Changelog</a>
+        <a href="/leave">Leave</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
       <a class="btn btn-sm" href="/?utm_source=seo&amp;utm_content=local-chatgpt-alternative#join">Join the waitlist</a>
     </div>
   </header>
@@ -80,7 +95,7 @@
         <p>Early access is Regular $199, and Student $69, which covers four years or until graduation. At launch it is Regular $299, and Student $99. The first 100 buyers are founders. Launch prices won’t go back down. Early access is not open yet. There is no buy button on this page. The waitlist is how you hear.</p>
         <p>Chiefly is coming to Mac and Windows. No nudges unless you set them. A chat product can be built around the next turn of a conversation. Chiefly is not built around tapping you. It speaks up when an action is waiting, because the action is not allowed to happen alone. It does not invent reasons to interrupt you.</p>
         <p>If you want a ChatGPT alternative that runs locally, the checks are ordinary. Does it run on your computer? Can you leave the cloud off? Does it wait before it acts? Can you pay once and keep the copy? Chiefly is built so those answers are yes. A chat assistant you visit in a browser is built so the work happens on a service. That is a fair description of the approach, and it is enough of a comparison.</p>
-        <p>Jarvis was the codename. Chiefly is the product. <a href="/paper">The paper</a> is still with a professor. This page is the practical difference: your computer, your approval, one payment.</p>
+        <p><a href="/paper">The paper</a> is still with a professor. This page is the practical difference: your computer, your approval, one payment.</p>
         <div class="essay-cta" id="waitlist">
           <h2>Hear when early access opens.</h2>
           <p>The waitlist is free. We’ll only email you about Chiefly. Early access isn’t open yet.</p>
@@ -92,7 +107,7 @@
   <footer class="foot">
     <div class="foot-in">
       <p class="foot-brand"><img src="/img/chiefly-mark.svg" alt="" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
-      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative" aria-current="page">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a></nav>
+      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative" aria-current="page">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a><a href="/download" data-launch-link hidden>Download</a><a href="/welcome" data-launch-link hidden>Welcome</a><a href="/privacy">Privacy</a><a href="/terms" data-launch-link hidden>Terms</a><a href="/support" data-launch-link hidden>Support</a><a href="/leave">Leave</a></nav>
       <p>Your personal chief of staff.</p>
     </div>
   </footer>

@@ -34,6 +34,7 @@
   <link rel="preload" href="/img/chiefly-mark.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/boot.js"></script>
+  <script src="/launch.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
@@ -48,12 +49,26 @@
     <div class="nav-in">
       <div class="brand-side">
         <a class="brand" href="/" aria-label="Chiefly, home">
-        <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
-        <span>Chiefly</span>
-      </a>
-        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
+          <span>Chiefly</span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
-      <nav class="menu" id="site-menu" aria-label="Site" hidden><a href="/private-ai-assistant">Private AI assistant</a><a href="/local-chatgpt-alternative">Local ChatGPT alternative</a><a href="/ai-assistant-for-students">For students</a><a href="/asks-before-it-acts">Asks before it acts</a><span class="menu-rule" role="separator"></span><a href="/vision">Vision</a><a href="/paper" aria-current="page">Paper</a><a href="/rename">Rename</a><a href="/changelog">Changelog</a><a href="/leave">Leave</a><a href="/#faq">FAQ</a></nav>
+      <nav class="menu" id="site-menu" aria-label="Site" hidden>
+        <a href="/private-ai-assistant">Private AI assistant</a>
+        <a href="/local-chatgpt-alternative">Local ChatGPT alternative</a>
+        <a href="/ai-assistant-for-students">For students</a>
+        <a href="/asks-before-it-acts">Asks before it acts</a>
+        <span class="menu-rule" role="separator"></span>
+        <a href="/vision">Vision</a>
+        <a href="/paper" aria-current="page">Paper</a>
+        <a href="/rename">Rename</a>
+        <a href="/changelog">Changelog</a>
+        <a href="/leave">Leave</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
       <a class="btn btn-sm" href="#join">Join the waitlist</a>
     </div>
   </header>
@@ -66,6 +81,14 @@
       <p class="lead reveal">Matt wrote the paper. It’s with a professor for review, so it isn’t public yet. This page will hold it when that review is done.</p>
       <p class="soon reveal">Coming soon.</p>
       <form class="wl reveal" id="join" data-source="paper" data-utm-content="paper" novalidate>
+        <fieldset class="platform">
+          <legend>Which computer? <span class="platform-opt">Optional</span></legend>
+          <div class="segs">
+            <label class="seg"><input type="radio" name="platform-paper" value="mac"><span>Mac</span></label>
+            <label class="seg"><input type="radio" name="platform-paper" value="windows"><span>Windows</span></label>
+            <label class="seg"><input type="radio" name="platform-paper" value="both"><span>Both</span></label>
+          </div>
+        </fieldset>
         <div class="wl-row">
           <label class="sr-only" for="email-paper">Email address</label>
           <input class="field" id="email-paper" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="254" placeholder="Your email" required aria-describedby="msg-paper">
@@ -73,8 +96,13 @@
           <button class="btn" type="submit">Join the waitlist</button>
         </div>
         <p class="wl-msg" id="msg-paper" role="status" aria-live="polite"></p>
+        <div class="share" hidden>
+          <button class="share-btn" type="button">Copy link</button>
+          <p class="share-note" role="status" aria-live="polite"></p>
+        </div>
         <label class="build"><input type="checkbox" name="build_with_me" value="true"><span>Build with me. Vote on what’s next, and join early tests.</span></label>
         <p class="fine">Free to join. We’ll only email you about Chiefly.</p>
+        <p class="wl-privacy"><a href="/privacy">Privacy</a></p>
       </form>
     </article>
   </main>
@@ -82,7 +110,7 @@
   <footer class="foot">
     <div class="foot-in">
       <p class="foot-brand"><img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">© 2026 Chiefly. Built for humans.</p>
-      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper" aria-current="page">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a></nav>
+      <nav class="foot-links" aria-label="Footer"><a href="/private-ai-assistant">Private AI</a><a href="/local-chatgpt-alternative">Local alternative</a><a href="/ai-assistant-for-students">Students</a><a href="/asks-before-it-acts">It asks first</a><a href="/paper" aria-current="page">The paper</a><a href="/rename">Codename Jarvis</a><a href="/changelog">Changelog</a><a href="/download" data-launch-link hidden>Download</a><a href="/welcome" data-launch-link hidden>Welcome</a><a href="/privacy">Privacy</a><a href="/terms" data-launch-link hidden>Terms</a><a href="/support" data-launch-link hidden>Support</a><a href="/leave">Leave</a></nav>
       <p>Your personal chief of staff.</p>
     </div>
   </footer>
