@@ -131,6 +131,12 @@ a { color: inherit; }
 }
 .wl-msg.ok::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px rgba(56, 214, 255, .7); }
 .fine { margin-top: 14px; font-size: 12px; color: var(--text-2); letter-spacing: 0; }
+.wl-privacy { margin-top: 2px; }
+.wl-privacy a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--text-2); font-size: 14px; text-decoration: none;
+}
+.wl-privacy a:hover { color: var(--cyan); }
 
 .more { display: inline-block; margin-top: 24px; color: var(--cyan); font-size: 19px; letter-spacing: -.012em; text-decoration: none; }
 .more::after { content: "\00a0›"; }
