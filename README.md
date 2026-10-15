@@ -34,7 +34,7 @@ If `utm_medium`, `utm_campaign`, `referrer`, `platform`, or `build_with_me` are 
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
-The headline is “All clear.” After a sign-up the page says “You’re on the list. Founders get first access at early pricing.” and offers a button that copies `https://chieflyos.com/?utm_source=referral`.
+The headline is “All clear.” After a sign-up the page says “You’re on the list. The first 100 buyers become founders and keep early pricing.” and offers a button that copies `https://chieflyos.com/?utm_source=referral`.
 
 ## SQL to run before the new fields will store
 
@@ -104,7 +104,7 @@ The ask-before demo is `#boundary`. It is a sample request, “Send the follow-u
 
 Launch day on the page is Monday, November 16, 2026. The line sits above each waitlist form. The date is in the HTML. The days-left text is added in the browser, from local midnight on that Monday, and it does not tick every second. With reduced motion it is set once. After that day the extra text is cleared. This is not a sale.
 
-After someone joins, the thank-you says founders get early access, and that the first 100 buyers are founders. It does not show how many spots are left.
+After someone joins, the thank-you says “You’re on the list. The first 100 buyers become founders and keep early pricing.” It does not show how many spots are left.
 
 `testimonials.js` is the only place quotes go. The list is empty. The homepage section stays hidden until an item has both a `quote` and a `name` from a real person. Do not invent either.
 

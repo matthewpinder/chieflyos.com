@@ -228,7 +228,7 @@ function reveals() {
 // ---------- waitlist ----------
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
-  done: "You’re on the list. Founders get first access at early pricing. The first 100 buyers are founders.",
+  done: "You’re on the list. The first 100 buyers become founders and keep early pricing.",
   dup: "You’re already on the list. We’ll be in touch.",
   empty: "Add your email to join.",
   bad: "That email doesn’t look right.",

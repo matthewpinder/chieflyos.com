@@ -125,11 +125,17 @@ a { color: inherit; }
 .wl-msg { min-height: 20px; margin-top: 10px; font-size: 14px; color: var(--err); }
 .wl-msg:empty { min-height: 0; margin-top: 0; }
 .wl-msg.ok {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 48px; margin-top: 0; font-size: 17px; color: var(--text); text-align: center;
+  display: block; width: max-content; max-width: calc(100vw - (2 * var(--gutter)));
+  margin-top: 0; margin-bottom: 0; margin-left: 50%; translate: -50% 0;
+  min-height: 48px; font-size: 17px; line-height: 1.35; color: var(--text); text-align: center;
+  text-wrap: balance;
   animation: fade .4s var(--ease) both;
 }
-.wl-msg.ok::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px rgba(56, 214, 255, .7); }
+.wl-msg.ok::before {
+  content: ""; display: inline-block; vertical-align: middle;
+  width: 8px; height: 8px; margin-right: 10px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 10px rgba(56, 214, 255, .7);
+}
 .fine { margin-top: 14px; font-size: 12px; color: var(--text-2); letter-spacing: 0; }
 .build {
   display: flex; align-items: center; gap: 12px; width: 100%;
