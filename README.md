@@ -110,7 +110,7 @@ The ask-before demo is `#boundary`. It is a sample request, “Send the follow-u
 
 `launch.js` holds one switch: `LAUNCH`. It is `false`.
 
-`/privacy` is already public. The waitlist collects emails, so the page is linked in the footer and under each form, listed in the sitemap, and allowed to be indexed. Legal review is still recommended before those words are treated as final. The date on the page is the placeholder `[date of merge]`. The removal address is the placeholder `[contact email]`.
+`/privacy` is already public. The waitlist collects emails, so the page is linked in the footer and under each form, listed in the sitemap, and allowed to be indexed. Legal review is still recommended before those words are treated as final. The page says last updated October 15, 2026. Removal is `matt@chieflyos.com`.
 
 While `LAUNCH` is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap.
 
