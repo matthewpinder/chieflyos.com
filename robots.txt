@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /get/
 Allow: /
 
 Sitemap: https://chieflyos.com/sitemap.xml
