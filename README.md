@@ -55,7 +55,9 @@ Existing insert policies cover the new columns. Nothing else has to change in th
 
 Founder’s pricing is the section “Launch prices won’t go back down.” Early access is Regular $199 / Student $69. At launch it is Regular $299 / Student $99. There is no buy button.
 
-The refusal demo is the block “It asks before it acts.” Replace the “Demo coming soon” line in `.demo-slot` with a video or GIF. The comment above that slot shows the markup.
+The refusal demo is `#boundary`, “It asks before it acts.” The slot is a still of a refused invite. A video or GIF can replace `.refusal`. The comment above that slot shows where.
+
+`/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
 

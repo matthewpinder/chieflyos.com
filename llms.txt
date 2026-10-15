@@ -1,22 +1,24 @@
 # Chiefly
 
-> Chiefly is a personal chief of staff that lives on your computer. Local by default, cloud only if you opt in. You pay once, and your Chiefly keeps working, even if we don’t.
+> Chiefly is a personal AI chief of staff. A private AI that runs on your computer: local by default, cloud opt-in. A no-subscription AI assistant. You pay once, and your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.
 
-Jarvis was the codename. Chiefly is the product: a personal chief of staff that lives on your computer.
+It runs on your computer. It asks before it acts.
 
-The waitlist is open. A private alpha runs in October 2026.
+The waitlist is open. Friend tests come first. Join the waitlist to hear when early access opens.
 
 Chiefly asks before it acts. Nothing happens until you say so.
 
-Launch prices won’t go back down. Early access is Regular $199, and Student $69, which covers 4 years or until graduation. At launch it is Regular $299, and Student $99. The first 100 buyers are founders and keep the early price. One-time payment, never a subscription. Early access isn’t open yet. Join the waitlist to get early access at founder’s pricing.
+Launch prices won’t go back down. Early access is Regular $199, and Student $69, which covers 4 years or until graduation. At launch it is Regular $299, and Student $99. A no-subscription AI assistant. You pay once. Early access isn’t open yet. Join the waitlist to get founder’s pricing.
+
+Student one-time AI: one payment covers four years, or until graduation.
 
 ## Principles
 
 - You own it. You don’t rent it.
 - Local by default. Cloud only if you opt in.
-- Your Chiefly keeps working, even if we don’t.
+- Your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.
 - It works for you, and only you.
-- You can delete it anytime.
+- See and delete what it remembers, anytime.
 
 ## Names
 
@@ -25,7 +27,10 @@ Launch prices won’t go back down. Early access is Regular $199, and Student $6
 - Codename: Jarvis
 - Site: https://chieflyos.com/
 
+Codename Jarvis grew up. Chiefly is the product, and you own it.
+
 ## Pages
 
-- [Chiefly](https://chieflyos.com/): the waitlist for Chiefly
+- [Chiefly](https://chieflyos.com/): the waitlist for Chiefly, a personal AI chief of staff
 - [The paper](https://chieflyos.com/paper): the Chiefly philosophy paper. With a professor for review. Coming soon.
+- [Codename Jarvis is now Chiefly](https://chieflyos.com/rename): the codename grew up into the product you own.
