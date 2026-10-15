@@ -45,13 +45,17 @@
   <a class="skip" href="#join">Skip to sign-up</a>
 
   <header class="nav">
-    <nav class="nav-in" aria-label="Primary">
-      <a class="brand" href="/" aria-label="Chiefly, home">
+    <div class="nav-in">
+      <div class="brand-side">
+        <a class="brand" href="/" aria-label="Chiefly, home">
         <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
         <span>Chiefly</span>
       </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <nav class="menu" id="site-menu" aria-label="Site" hidden><a href="/private-ai-assistant">Private AI assistant</a><a href="/local-chatgpt-alternative">Local ChatGPT alternative</a><a href="/ai-assistant-for-students">For students</a><a href="/asks-before-it-acts">Asks before it acts</a><span class="menu-rule" role="separator"></span><a href="/vision">Vision</a><a href="/paper" aria-current="page">Paper</a><a href="/rename">Rename</a><a href="/changelog">Changelog</a><a href="/leave">Leave</a><a href="/#faq">FAQ</a></nav>
       <a class="btn btn-sm" href="#join">Join the waitlist</a>
-    </nav>
+    </div>
   </header>
 
   <main>
@@ -69,6 +73,7 @@
           <button class="btn" type="submit">Join the waitlist</button>
         </div>
         <p class="wl-msg" id="msg-paper" role="status" aria-live="polite"></p>
+        <label class="build"><input type="checkbox" name="build_with_me" value="true"><span>Build with me. Vote on what’s next, and join early tests.</span></label>
         <p class="fine">Free to join. We’ll only email you about Chiefly.</p>
       </form>
     </article>

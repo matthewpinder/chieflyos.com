@@ -235,7 +235,7 @@ function hasJoined() {
 
 // Columns added for the marketing start. Sign-ups still succeed if they
 // are not in the table yet: a missing column comes back as PGRST204.
-const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer"];
+const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer", "build_with_me"];
 
 function campaignField(name) {
   try {
@@ -321,8 +321,14 @@ function dropMissing(row, missing) {
   return true;
 }
 
+function buildWithMe(form) {
+  const box = form && form.querySelector('input[name="build_with_me"]');
+  return !!(box && box.checked);
+}
+
 async function join(email, source, form) {
   const row = { email, source, ...attribution(form) };
+  if (buildWithMe(form)) row.build_with_me = true;
   try {
     let result = await postWaitlist(row);
     for (let tries = 0; result.status === "error" && tries < OPTIONAL_COLUMNS.length; tries++) {
@@ -354,11 +360,13 @@ function waitlist(form) {
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
   const fine = form.querySelector(".fine");
+  const build = form.querySelector(".build");
   const label = button.textContent;
 
   const finish = (text) => {
     row.hidden = true;
     if (fine) fine.hidden = true;
+    if (build) build.hidden = true;
     msg.className = "wl-msg ok";
     msg.tabIndex = -1;
     msg.textContent = text;
@@ -427,8 +435,44 @@ function waitlist(form) {
   });
 }
 
+// ---------- site menu (logo disclosure) ----------
+function siteMenu() {
+  const btn = document.querySelector(".menu-btn");
+  const menu = document.getElementById("site-menu");
+  if (!btn || !menu) return;
+
+  const setOpen = (open, focusBtn) => {
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open && focusBtn) btn.focus();
+  };
+
+  btn.addEventListener("click", () => {
+    setOpen(btn.getAttribute("aria-expanded") !== "true", false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || menu.hidden) return;
+    setOpen(false, true);
+  });
+
+  document.addEventListener("pointerdown", (e) => {
+    if (menu.hidden) return;
+    const t = e.target;
+    if (!(t instanceof Node)) return;
+    if (btn.contains(t) || menu.contains(t)) return;
+    setOpen(false, false);
+  });
+
+  menu.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t instanceof Element && t.closest("a")) setOpen(false, false);
+  });
+}
+
 // ---------- go ----------
 startUp();
+siteMenu();
 document.querySelectorAll("form.wl").forEach(waitlist);
 if (hasJoined()) showDone(SAY.done);
 reveals();

@@ -26,7 +26,9 @@ When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `
 
 All of those fields are optional. The key in `app.js` is the publishable key. It can only add an email: row-level security allows insert only, so nobody can read, change or delete the list from the browser. The database itself rejects bad emails and duplicates.
 
-If `utm_medium`, `utm_campaign`, or `referrer` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
+If `utm_medium`, `utm_campaign`, `referrer`, or `build_with_me` are not columns yet, PostgREST answers `PGRST204` (or Postgres `42703`). The form drops the missing column and tries again, so the email still saves. `utm_source` and `utm_content` are not dropped; those columns are already there.
+
+`build_with_me` is the optional “Build with me” box. It is sent only when ticked, as boolean `true`. Unticked sends nothing for that field.
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
@@ -49,6 +51,18 @@ comment on column public.waitlist.referrer is 'Referring origin and path at sign
 notify pgrst, 'reload schema';
 ```
 
+`build_with_me` is the same kind of optional column. Run this once so a ticked box is kept. The same statement is in `supabase/migrations/20261015233000_waitlist_build_with_me.sql`.
+
+```sql
+alter table public.waitlist
+  add column if not exists build_with_me boolean;
+
+comment on column public.waitlist.build_with_me is
+  'Optional. True when they opt in to vote on what is next and join early tests. Null if they left the box unticked.';
+
+notify pgrst, 'reload schema';
+```
+
 Existing insert policies cover the new columns. Nothing else has to change in the dashboard.
 
 ## Homepage slots
@@ -60,6 +74,10 @@ The refusal demo is `#boundary`, “It asks before it acts.” The slot is a sti
 `/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
+
+`/vision` is where Chiefly is going. No dates. `/leave` is the right to leave: export, then uninstall.
+
+The logo menu includes Vision and Leave. The menu is the same disclosure as the menu pull request, with those two links added.
 
 ## At launch
 
