@@ -73,6 +73,20 @@ class Reactor {
     if (!this.raf) this.draw(performance.now(), 0);
   }
 
+  // One soft light-up, then stop. No loop, so it does not keep painting.
+  ignite(to, ms = 1500) {
+    const from = this.power;
+    const start = performance.now();
+    const step = (now) => {
+      const t = clamp((now - start) / ms);
+      const e = t * t * (3 - 2 * t);
+      this.power = mix(from, to, e);
+      this.draw(now, 0);
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
   run() {
     const go = this.live && this.visible && !document.hidden;
     if (go && !this.raf) {
@@ -214,7 +228,7 @@ function reveals() {
 // ---------- waitlist ----------
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
-  done: "You’re on the list. We’ll be in touch.",
+  done: "You’re on the list. Founders get first access at early pricing.",
   dup: "You’re already on the list. We’ll be in touch.",
   empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
@@ -222,6 +236,7 @@ const SAY = {
 };
 
 const JOINED_KEY = "chiefly-joined";
+const SHARE_URL = "https://chieflyos.com/?utm_source=referral";
 const forms = [];
 let busy = false;
 
@@ -235,7 +250,8 @@ function hasJoined() {
 
 // Columns added for the marketing start. Sign-ups still succeed if they
 // are not in the table yet: a missing column comes back as PGRST204.
-const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer"];
+const OPTIONAL_COLUMNS = ["utm_medium", "utm_campaign", "referrer", "platform"];
+const PLATFORMS = ["mac", "windows", "both"];
 
 function campaignField(name) {
   try {
@@ -275,6 +291,13 @@ function attribution(form) {
   const referrer = referrerField();
   if (referrer) row.referrer = referrer;
   return row;
+}
+
+function platformField(form) {
+  const picked = form.querySelector(".platform input:checked");
+  if (!picked) return "";
+  const value = picked.value;
+  return PLATFORMS.includes(value) ? value : "";
 }
 
 function missingColumn(body) {
@@ -323,6 +346,8 @@ function dropMissing(row, missing) {
 
 async function join(email, source, form) {
   const row = { email, source, ...attribution(form) };
+  const platform = platformField(form);
+  if (platform) row.platform = platform;
   try {
     let result = await postWaitlist(row);
     for (let tries = 0; result.status === "error" && tries < OPTIONAL_COLUMNS.length; tries++) {
@@ -350,18 +375,24 @@ function showDone(text) {
 function waitlist(form) {
   const input = form.querySelector(".field");
   const trap = form.querySelector(".hp");
-  const button = form.querySelector("button");
+  const button = form.querySelector("button.btn");
   const row = form.querySelector(".wl-row");
   const msg = form.querySelector(".wl-msg");
   const fine = form.querySelector(".fine");
+  const platform = form.querySelector(".platform");
+  const share = form.querySelector(".share");
+  const shareBtn = form.querySelector(".share-btn");
+  const shareNote = form.querySelector(".share-note");
   const label = button.textContent;
 
   const finish = (text) => {
     row.hidden = true;
     if (fine) fine.hidden = true;
+    if (platform) platform.hidden = true;
     msg.className = "wl-msg ok";
     msg.tabIndex = -1;
     msg.textContent = text;
+    if (share) share.hidden = false;
   };
   const fail = (text, invalid) => {
     if (invalid) input.setAttribute("aria-invalid", "true");
@@ -371,6 +402,30 @@ function waitlist(form) {
   };
 
   forms.push({ form, button, label, finish });
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      let copied = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(SHARE_URL);
+          copied = true;
+        }
+      } catch (e) {}
+      if (!copied) {
+        const area = document.createElement("textarea");
+        area.value = SHARE_URL;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        form.append(area);
+        area.select();
+        try { copied = document.execCommand("copy"); } catch (e) {}
+        area.remove();
+      }
+      if (shareNote) shareNote.textContent = copied ? "Link copied." : SHARE_URL;
+    });
+  }
 
   input.addEventListener("input", () => {
     if (!input.hasAttribute("aria-invalid")) return;
@@ -427,15 +482,89 @@ function waitlist(form) {
   });
 }
 
+// ---------- ask-before demo (no network) ----------
+function askDemo() {
+  const root = document.querySelector("[data-ask]");
+  if (!root) return;
+  const approve = root.querySelector("[data-approve]");
+  const refuse = root.querySelector("[data-refuse]");
+  const reset = root.querySelector("[data-reset]");
+  const result = root.querySelector("[data-result]");
+  const actions = root.querySelector(".ask-actions");
+  if (!approve || !refuse || !reset || !result || !actions) return;
+
+  const choose = (text, kind) => {
+    result.textContent = text;
+    result.classList.toggle("is-clear", kind === "clear");
+    result.classList.toggle("is-sent", kind === "sent");
+    root.classList.toggle("is-clear", kind === "clear");
+    actions.hidden = true;
+    reset.hidden = false;
+    reset.focus();
+  };
+
+  approve.addEventListener("click", () => choose("Approved. Sent.", "sent"));
+  refuse.addEventListener("click", () => choose("Refused. Nothing sent. All clear.", "clear"));
+  reset.addEventListener("click", () => {
+    result.textContent = "";
+    result.classList.remove("is-clear", "is-sent");
+    root.classList.remove("is-clear");
+    actions.hidden = false;
+    reset.hidden = true;
+    approve.focus();
+  });
+}
+
+// ---------- site menu (logo disclosure) ----------
+function siteMenu() {
+  const btn = document.querySelector(".menu-btn");
+  const menu = document.getElementById("site-menu");
+  if (!btn || !menu) return;
+
+  const setOpen = (open, focusBtn) => {
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open && focusBtn) btn.focus();
+  };
+
+  btn.addEventListener("click", () => {
+    setOpen(btn.getAttribute("aria-expanded") !== "true", false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || menu.hidden) return;
+    setOpen(false, true);
+  });
+
+  document.addEventListener("pointerdown", (e) => {
+    if (menu.hidden) return;
+    const t = e.target;
+    if (!(t instanceof Node)) return;
+    if (btn.contains(t) || menu.contains(t)) return;
+    setOpen(false, false);
+  });
+
+  menu.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t instanceof Element && t.closest("a")) setOpen(false, false);
+  });
+}
+
 // ---------- go ----------
 startUp();
+askDemo();
+siteMenu();
 document.querySelectorAll("form.wl").forEach(waitlist);
 if (hasJoined()) showDone(SAY.done);
 reveals();
 
 const reactors = new Map();
 document.querySelectorAll("canvas[data-power]").forEach((c) => {
-  reactors.set(c, new Reactor(c, reduce ? 1 : Number(c.dataset.power)));
+  const target = Number(c.dataset.power);
+  const warm = !!c.closest(".peek");
+  const reactor = new Reactor(c, reduce ? 1 : warm ? 0 : target);
+  reactors.set(c, reactor);
+  if (warm && !reduce) reactor.ignite(target, 1500);
 });
 
 if (!reduce) {
