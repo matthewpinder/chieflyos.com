@@ -515,9 +515,45 @@ function askDemo() {
   });
 }
 
+// ---------- site menu (logo disclosure) ----------
+function siteMenu() {
+  const btn = document.querySelector(".menu-btn");
+  const menu = document.getElementById("site-menu");
+  if (!btn || !menu) return;
+
+  const setOpen = (open, focusBtn) => {
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open && focusBtn) btn.focus();
+  };
+
+  btn.addEventListener("click", () => {
+    setOpen(btn.getAttribute("aria-expanded") !== "true", false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || menu.hidden) return;
+    setOpen(false, true);
+  });
+
+  document.addEventListener("pointerdown", (e) => {
+    if (menu.hidden) return;
+    const t = e.target;
+    if (!(t instanceof Node)) return;
+    if (btn.contains(t) || menu.contains(t)) return;
+    setOpen(false, false);
+  });
+
+  menu.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t instanceof Element && t.closest("a")) setOpen(false, false);
+  });
+}
+
 // ---------- go ----------
 startUp();
 askDemo();
+siteMenu();
 document.querySelectorAll("form.wl").forEach(waitlist);
 if (hasJoined()) showDone(SAY.done);
 reveals();

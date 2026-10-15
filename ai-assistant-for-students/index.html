@@ -45,13 +45,29 @@
   <a class="skip" href="#waitlist">Skip to the waitlist</a>
 
   <header class="nav">
-    <nav class="nav-in" aria-label="Primary">
-      <a class="brand" href="/" aria-label="Chiefly, home">
-        <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
-        <span>Chiefly</span>
-      </a>
+    <div class="nav-in">
+      <div class="brand-side">
+        <a class="brand" href="/" aria-label="Chiefly, home">
+          <img src="/img/chiefly-mark.svg" alt="Chiefly" width="20" height="20">
+          <span>Chiefly</span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <nav class="menu" id="site-menu" aria-label="Site" hidden>
+        <a href="/private-ai-assistant">Private AI assistant</a>
+        <a href="/local-chatgpt-alternative">Local ChatGPT alternative</a>
+        <a href="/ai-assistant-for-students" aria-current="page">For students</a>
+        <a href="/asks-before-it-acts">Asks before it acts</a>
+        <span class="menu-rule" role="separator"></span>
+        <a href="/paper">Paper</a>
+        <a href="/rename">Rename</a>
+        <a href="/changelog">Changelog</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
       <a class="btn btn-sm" href="/?utm_source=seo&amp;utm_content=ai-assistant-for-students#join">Join the waitlist</a>
-    </nav>
+    </div>
   </header>
 
   <main>
