@@ -61,9 +61,17 @@ The refusal demo is `#boundary`, “It asks before it acts.” The slot is a sti
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
 
+## Privacy and terms
+
+`/privacy` is public. It does not read `LAUNCH`. It is in the footer and under each waitlist form, and it is in the sitemap.
+
+`/terms` stays behind `LAUNCH` in `launch.js` (`false`). It is not linked from the site, not in the sitemap, and disallowed in `robots.txt`. The page says the terms are not published yet. Set `LAUNCH` to `true` only when the terms copy is in `#launch-copy`, then remove the robots disallow.
+
+On the privacy page, replace `[date of merge]` and `[contact email]` when you merge.
+
 ## At launch
 
-Change the "Join the waitlist" buttons and the nav pill to "Download", and point them at the installer.
+Change the "Join the waitlist" buttons and the nav pill to "Download", and point them at the installer. Flip `LAUNCH` in `launch.js` when the terms are ready to publish.
 
 ## Check it locally
 

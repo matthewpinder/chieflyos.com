@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /terms
 
 Sitemap: https://chieflyos.com/sitemap.xml
