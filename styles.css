@@ -298,10 +298,10 @@ html.js .big .w { color: var(--dim); }
 
 /* ---------- footer ---------- */
 .foot { border-top: 1px solid var(--line); }
-.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
+.foot-in { max-width: 980px; margin: 0 auto; padding: 20px var(--gutter) 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; font-size: 12px; letter-spacing: 0; color: var(--text-2); }
 .foot-brand { display: flex; align-items: center; gap: 8px; }
 .foot-brand img { width: 20px; height: 20px; }
-.foot-links { display: flex; gap: 16px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 10px 16px; }
 .foot a { color: inherit; text-decoration: none; }
 .foot a:hover { color: var(--cyan); }
 
@@ -346,7 +346,10 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .tile h3 { font-size: 24px; }
   .students-in { border-radius: 24px; }
   .demo-slot { border-radius: 24px; }
-  .foot-in { flex-direction: column; align-items: center; text-align: center; }
+  .foot-in { flex-direction: column; align-items: stretch; text-align: center; }
+  .foot-brand, .foot-in > p { justify-content: center; }
+  .foot-links { justify-content: center; width: 100%; min-width: 0; }
+  .essay-cta .btn { width: auto; }
 }
 @media (max-width: 380px) {
   .price-amt { flex-direction: column; align-items: center; gap: 2px; }
@@ -378,3 +381,33 @@ html.js .reveal.in { opacity: 1; transform: none; }
 
 /* ---------- 404 ---------- */
 .mark404 { width: 64px; height: 64px; margin-bottom: 32px; }
+
+/* ---------- long pages ---------- */
+.essay {
+  max-width: 68ch; margin: 0 auto;
+  padding: clamp(56px, 10vh, 96px) var(--gutter) clamp(72px, 12vh, 140px);
+}
+.essay .eyebrow, .essay h1, .essay h2, .essay p { text-align: left; }
+.essay h1 { text-wrap: balance; }
+.essay h2 {
+  margin: 2.4em 0 0;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -.028em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.essay p { margin: 0.95em 0 0; font-size: 17px; line-height: 1.65; color: #d2d2d7; }
+.essay a { color: var(--cyan); text-underline-offset: 3px; }
+.essay-cta { margin-top: 3em; padding-top: 28px; border-top: 1px solid var(--line); }
+.essay-cta .btn { margin-top: 20px; }
+.log { list-style: none; padding: 0; margin: 28px 0 0; }
+.log li { padding: 22px 0 0; border-top: 1px solid var(--line); }
+.log-what { color: var(--text); font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
+
+/* ---------- homepage FAQ ---------- */
+.faq { max-width: 760px; margin: 0 auto; padding: clamp(80px, 12vh, 140px) var(--gutter) 0; scroll-margin-top: calc(var(--nav) + 12px); }
+.faq h2 { text-align: center; margin-bottom: clamp(36px, 6vh, 56px); }
+.faq-list { display: grid; gap: 32px; }
+.faq-item h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; letter-spacing: -.022em; line-height: 1.25; }
+.faq-item p { margin-top: 8px; color: var(--text-2); }
