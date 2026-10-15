@@ -228,7 +228,7 @@ function reveals() {
 // ---------- waitlist ----------
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
-  done: "You’re on the list. Founders get first access at early pricing.",
+  done: "You’re on the list. Founders get first access at early pricing. The first 100 buyers are founders.",
   dup: "You’re already on the list. We’ll be in touch.",
   empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
@@ -558,10 +558,70 @@ function siteMenu() {
   });
 }
 
+// ---------- launch day (local midnight, Monday 16 November 2026) ----------
+function launchWhen() {
+  const nodes = document.querySelectorAll("[data-launch-left]");
+  if (!nodes.length) return;
+  const start = new Date(2026, 10, 16, 0, 0, 0, 0);
+  const paint = () => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const day = new Date(2026, 10, 16);
+    let text = "";
+    if (today.getTime() === day.getTime()) text = "Today";
+    else if (now < start) {
+      const ms = start - now;
+      const days = Math.floor(ms / 86400000);
+      const hours = Math.floor((ms % 86400000) / 3600000);
+      if (days >= 1) text = days === 1 ? "1 day" : days + " days";
+      else if (hours >= 1) text = hours === 1 ? "1 hour" : hours + " hours";
+      else text = "Less than an hour";
+    }
+    nodes.forEach((n) => { n.textContent = text; });
+  };
+  paint();
+  if (!reduce) setInterval(paint, 60000);
+}
+
+// ---------- quotes: nothing until testimonials.js has real ones ----------
+function quotes() {
+  const root = document.getElementById("quotes");
+  const list = window.TESTIMONIALS;
+  if (!root || !Array.isArray(list)) return;
+  const items = list.filter((item) => {
+    if (!item) return false;
+    const quote = typeof item.quote === "string" ? item.quote.trim() : "";
+    const name = typeof item.name === "string" ? item.name.trim() : "";
+    return quote && name;
+  });
+  if (!items.length) return;
+  const title = document.createElement("h2");
+  title.className = "headline";
+  title.id = "quotes-title";
+  title.textContent = "What people have said";
+  const ol = document.createElement("ol");
+  ol.className = "quote-list";
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    const q = document.createElement("blockquote");
+    q.textContent = item.quote.trim();
+    const by = document.createElement("p");
+    by.className = "quote-by";
+    by.textContent = item.name.trim();
+    li.append(q, by);
+    ol.append(li);
+  });
+  root.append(title, ol);
+  root.setAttribute("aria-labelledby", "quotes-title");
+  root.hidden = false;
+}
+
 // ---------- go ----------
 startUp();
 askDemo();
 siteMenu();
+launchWhen();
+quotes();
 document.querySelectorAll("form.wl").forEach(waitlist);
 if (hasJoined()) showDone(SAY.done);
 reveals();

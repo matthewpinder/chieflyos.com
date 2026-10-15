@@ -146,6 +146,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="boot.js"></script>
   <script src="/launch.js" defer></script>
+  <script src="testimonials.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -195,6 +196,11 @@
         </h1>
         <p class="lead rise d3">It remembers what matters, handles the boring stuff, and leaves the day clear.</p>
         <p class="story rise d3">Runs on your computer. Asks before it acts.</p>
+        <p class="launch-when">
+          <span class="launch-k">Launch</span>
+          <span class="launch-day">Monday, November 16, 2026</span>
+          <span class="launch-left" data-launch-left></span>
+        </p>
         <form class="wl rise d4" data-source="hero" novalidate>
           <fieldset class="platform">
             <legend>Which computer? <span class="platform-opt">Optional</span></legend>
@@ -223,6 +229,29 @@
       <div class="peek rise d5" aria-hidden="true">
         <canvas data-power="0.48"></canvas>
       </div>
+    </section>
+
+    <section class="setup" aria-labelledby="setup-title">
+      <h2 class="headline" id="setup-title">How install works.</h2>
+      <p class="lead">On the screen. No terminal. Early access isn’t open yet.</p>
+      <ol class="setup-steps">
+        <li>
+          <h3>Download it from chieflyos.com.</h3>
+          <p>When it is ready, the file is on this site. You do not type a command.</p>
+        </li>
+        <li>
+          <h3>Open it.</h3>
+          <p>Open Chiefly the way you open any other app. It runs on your computer.</p>
+        </li>
+        <li>
+          <h3>It gets to know you as you use it.</h3>
+          <p>There is no interview to fill out first. Local by default. Cloud only if you opt in.</p>
+        </li>
+        <li>
+          <h3>Approve, or refuse.</h3>
+          <p>It asks before it acts. You say yes, or you say no. Nothing happens until you do.</p>
+        </li>
+      </ol>
     </section>
 
     <section class="problem" aria-labelledby="problem-title">
@@ -396,6 +425,8 @@
       <a class="more" href="/vision">Where Chiefly is going</a>
     </section>
 
+    <section class="quotes" id="quotes" hidden></section>
+
     <section class="join" id="join" aria-labelledby="join-title">
       <div class="reactor-wrap small reveal" aria-hidden="true">
         <div class="bloom lit"></div>
@@ -403,6 +434,11 @@
       </div>
       <h2 class="headline reveal" id="join-title">Be first in line.</h2>
       <p class="lead reveal">We’ll tell you when it’s ready.</p>
+      <p class="launch-when">
+        <span class="launch-k">Launch</span>
+        <span class="launch-day">Monday, November 16, 2026</span>
+        <span class="launch-left" data-launch-left></span>
+      </p>
       <form class="wl reveal" data-source="final" novalidate>
         <fieldset class="platform">
           <legend>Which computer? <span class="platform-opt">Optional</span></legend>

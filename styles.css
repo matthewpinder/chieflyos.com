@@ -469,6 +469,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
 }
 @media (max-width: 734px) {
   :root { --gutter: 20px; --nav: 60px; }
+  .setup-steps li { grid-template-columns: 44px 1fr; padding: 22px 20px 24px; border-radius: 22px; }
+  .setup-steps li::before { font-size: 32px; }
   .hero-copy { padding-top: 48px; min-height: calc(100svh - var(--nav)); }
   .more { display: inline-flex; align-items: center; min-height: 44px; }
   .fine { font-size: 14px; line-height: 1.4; }
@@ -638,3 +640,57 @@ ol.going { list-style: decimal; padding-left: 1.25em; }
   display: grid; place-items: center;
   background: var(--tile); font-weight: 600;
 }
+
+/* ---------- launch day, near the waitlist ---------- */
+.launch-when {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 6px 10px; min-height: 44px; margin: 22px 0 0;
+  color: var(--text-2); font-size: 15px; line-height: 1.4;
+}
+.launch-k {
+  color: var(--cyan); font-size: 12px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.launch-day { color: var(--text); }
+.launch-left:empty { display: none; }
+
+/* ---------- how install works ---------- */
+.setup {
+  max-width: 840px; margin: 0 auto;
+  padding: clamp(88px, 14vh, 160px) var(--gutter) 0;
+  text-align: center;
+}
+.setup .lead { max-width: 36ch; margin: 16px auto 0; }
+.setup-steps {
+  list-style: none; counter-reset: step;
+  margin: 40px 0 0; padding: 0;
+  display: grid; gap: 14px; text-align: left;
+}
+.setup-steps li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 8px 18px;
+  align-items: start;
+  padding: 28px 28px 30px;
+  border-radius: 28px; background: var(--tile);
+}
+.setup-steps li::before {
+  counter-increment: step; content: counter(step);
+  grid-row: 1 / span 2;
+  font-size: 40px; font-weight: 600; letter-spacing: -.04em; line-height: 1;
+  color: var(--text);
+}
+.setup-steps h3 {
+  margin: 0; font-size: clamp(22px, 2.4vw, 28px); font-weight: 600;
+  letter-spacing: -.028em; line-height: 1.15;
+}
+.setup-steps p { margin: 0; color: var(--text-2); font-size: 17px; line-height: 1.45; }
+
+/* ---------- quotes stay invisible until the data file has some ---------- */
+.quotes {
+  max-width: 760px; margin: 0 auto;
+  padding: clamp(80px, 12vh, 140px) var(--gutter) 0;
+  text-align: center;
+}
+.quote-list { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 14px; text-align: left; }
+.quote-list li { padding: 28px; border-radius: 24px; background: var(--tile); }
+.quote-list blockquote { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.35; }
+.quote-by { margin: 14px 0 0; color: var(--text-2); font-size: 15px; }

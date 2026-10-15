@@ -100,6 +100,14 @@ Founder’s pricing is the section “Launch prices won’t go back down.” Ear
 
 The ask-before demo is `#boundary`. It is a sample request, “Send the follow-up email to Sam?”, with Approve, Refuse, and Reset. Nothing is sent. It does not use the network.
 
+“How install works” is the four steps under the hero. It describes the path. It is not a download button, and it does not link to `/download` while that page is hidden.
+
+Launch day on the page is Monday, November 16, 2026. The line sits above each waitlist form. The date is in the HTML. The days-left text is added in the browser, from local midnight on that Monday, and it does not tick every second. With reduced motion it is set once. After that day the extra text is cleared. This is not a sale.
+
+After someone joins, the thank-you says founders get early access, and that the first 100 buyers are founders. It does not show how many spots are left.
+
+`testimonials.js` is the only place quotes go. The list is empty. The homepage section stays hidden until an item has both a `quote` and a `name` from a real person. Do not invent either.
+
 `/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
