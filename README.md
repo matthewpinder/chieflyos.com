@@ -61,9 +61,25 @@ The refusal demo is `#boundary`, “It asks before it acts.” The slot is a sti
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
 
-## At launch
+## The LAUNCH flag
 
-Change the "Join the waitlist" buttons and the nav pill to "Download", and point them at the installer.
+`launch.js` holds one switch: `LAUNCH`. It is `false`.
+
+While it is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap.
+
+- `/download`: the button for this computer, the warning steps, system requirements as TBD
+- `/welcome`: after purchase
+- `/privacy` and `/terms`: plain language. Legal review needed before they are public.
+- `/support`: contact and bug report. The addresses are placeholders: `[contact email]` and `[bug report email]`
+- `/leave`: export and uninstall
+
+Set `LAUNCH` to `true` on launch day. Every link whose text is exactly “Join the waitlist” becomes “Get Chiefly”. Paste the Gumroad link into `GET_URL`. Until that link exists, Get Chiefly opens `/download`. The email form button stays “Join the waitlist”, because it still saves an email.
+
+The same switch shows the footer links Download, Welcome, Privacy, Terms, Support, and Leave. They are in the HTML with `hidden` until then.
+
+Also, before you call the pages public: remove `noindex` on each one, add them to `sitemap.xml`, and replace `[date of merge]`, `[contact email]`, and `[bug report email]`.
+
+The email form is unchanged by the flag.
 
 ## Check it locally
 
