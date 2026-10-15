@@ -73,6 +73,20 @@ class Reactor {
     if (!this.raf) this.draw(performance.now(), 0);
   }
 
+  // One soft light-up, then stop. No loop, so it does not keep painting.
+  ignite(to, ms = 1500) {
+    const from = this.power;
+    const start = performance.now();
+    const step = (now) => {
+      const t = clamp((now - start) / ms);
+      const e = t * t * (3 - 2 * t);
+      this.power = mix(from, to, e);
+      this.draw(now, 0);
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
   run() {
     const go = this.live && this.visible && !document.hidden;
     if (go && !this.raf) {
@@ -214,7 +228,7 @@ function reveals() {
 // ---------- waitlist ----------
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
-  done: "You’re on the list. We’ll be in touch.",
+  done: "You’re on the list. Founders get first access at early pricing.",
   dup: "You’re already on the list. We’ll be in touch.",
   empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
@@ -222,6 +236,7 @@ const SAY = {
 };
 
 const JOINED_KEY = "chiefly-joined";
+const SHARE_URL = "https://chieflyos.com/?utm_source=referral";
 const forms = [];
 let busy = false;
 
@@ -365,6 +380,9 @@ function waitlist(form) {
   const msg = form.querySelector(".wl-msg");
   const fine = form.querySelector(".fine");
   const platform = form.querySelector(".platform");
+  const share = form.querySelector(".share");
+  const shareBtn = form.querySelector(".share-btn");
+  const shareNote = form.querySelector(".share-note");
   const label = button.textContent;
 
   const finish = (text) => {
@@ -374,6 +392,7 @@ function waitlist(form) {
     msg.className = "wl-msg ok";
     msg.tabIndex = -1;
     msg.textContent = text;
+    if (share) share.hidden = false;
   };
   const fail = (text, invalid) => {
     if (invalid) input.setAttribute("aria-invalid", "true");
@@ -383,6 +402,30 @@ function waitlist(form) {
   };
 
   forms.push({ form, button, label, finish });
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      let copied = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(SHARE_URL);
+          copied = true;
+        }
+      } catch (e) {}
+      if (!copied) {
+        const area = document.createElement("textarea");
+        area.value = SHARE_URL;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        form.append(area);
+        area.select();
+        try { copied = document.execCommand("copy"); } catch (e) {}
+        area.remove();
+      }
+      if (shareNote) shareNote.textContent = copied ? "Link copied." : SHARE_URL;
+    });
+  }
 
   input.addEventListener("input", () => {
     if (!input.hasAttribute("aria-invalid")) return;
@@ -450,17 +493,22 @@ function askDemo() {
   const actions = root.querySelector(".ask-actions");
   if (!approve || !refuse || !reset || !result || !actions) return;
 
-  const choose = (text) => {
+  const choose = (text, kind) => {
     result.textContent = text;
+    result.classList.toggle("is-clear", kind === "clear");
+    result.classList.toggle("is-sent", kind === "sent");
+    root.classList.toggle("is-clear", kind === "clear");
     actions.hidden = true;
     reset.hidden = false;
     reset.focus();
   };
 
-  approve.addEventListener("click", () => choose("Approved. Sent."));
-  refuse.addEventListener("click", () => choose("Refused. Nothing sent. All clear."));
+  approve.addEventListener("click", () => choose("Approved. Sent.", "sent"));
+  refuse.addEventListener("click", () => choose("Refused. Nothing sent. All clear.", "clear"));
   reset.addEventListener("click", () => {
     result.textContent = "";
+    result.classList.remove("is-clear", "is-sent");
+    root.classList.remove("is-clear");
     actions.hidden = false;
     reset.hidden = true;
     approve.focus();
@@ -476,7 +524,11 @@ reveals();
 
 const reactors = new Map();
 document.querySelectorAll("canvas[data-power]").forEach((c) => {
-  reactors.set(c, new Reactor(c, reduce ? 1 : Number(c.dataset.power)));
+  const target = Number(c.dataset.power);
+  const warm = !!c.closest(".peek");
+  const reactor = new Reactor(c, reduce ? 1 : warm ? 0 : target);
+  reactors.set(c, reactor);
+  if (warm && !reduce) reactor.ignite(target, 1500);
 });
 
 if (!reduce) {

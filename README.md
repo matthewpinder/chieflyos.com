@@ -32,7 +32,7 @@ If `utm_medium`, `utm_campaign`, `referrer`, or `platform` are not columns yet, 
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
-The headline is “All clear.”
+The headline is “All clear.” After a sign-up the page says “You’re on the list. Founders get first access at early pricing.” and offers a button that copies `https://chieflyos.com/?utm_source=referral`.
 
 ## SQL to run before the new fields will store
 
