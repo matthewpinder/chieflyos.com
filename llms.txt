@@ -6,7 +6,9 @@ Jarvis was the codename. Chiefly is the product: a personal chief of staff that 
 
 The waitlist is open. A private alpha runs in October 2026.
 
-Early believers pay less. Forever. Early access is $199, and $69 for students, which covers 4 years or until graduation. At launch it is $299, and $99 for students. The first 100 buyers are founders, locked at the early price. One payment, never a subscription. Early access isn’t open yet. The waitlist is how you get early access at founder’s pricing.
+Chiefly asks before it acts. Nothing happens until you say so.
+
+Launch prices won’t go back down. Early access is Regular $199, and Student $69, which covers 4 years or until graduation. At launch it is Regular $299, and Student $99. The first 100 buyers are founders and keep the early price. One-time payment, never a subscription. Early access isn’t open yet. Join the waitlist to get early access at founder’s pricing.
 
 ## Principles
 
@@ -26,3 +28,4 @@ Early believers pay less. Forever. Early access is $199, and $69 for students, w
 ## Pages
 
 - [Chiefly](https://chieflyos.com/): the waitlist for Chiefly
+- [The paper](https://chieflyos.com/paper): the Chiefly philosophy paper. With a professor for review. Coming soon.
