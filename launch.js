@@ -10,6 +10,7 @@ var GET_URL = "";
 (function () {
   function apply() {
     if (!LAUNCH) return;
+    document.documentElement.classList.add("launched");
     var href = GET_URL || "/download";
     var links = document.querySelectorAll("a");
     for (var i = 0; i < links.length; i++) {

@@ -4,7 +4,7 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Files
 
-- `index.html`: the homepage copy, including founder’s pricing and the ask-before demo.
+- `index.html`: the homepage copy, including founder’s pricing, the ask-before demo, and a note from Matthew, signed Matthew.
 - `paper/index.html`: placeholder for the philosophy paper (`/paper`).
 - `llms.txt`: a short description for answer engines. Outcomes only.
 - `styles.css`: the look (colours and easing at the top).
@@ -120,7 +120,9 @@ After someone joins, the thank-you says “You’re on the list. The first 100 b
 
 `/privacy` is already public. The waitlist collects emails, so the page is linked in the footer and under each form, listed in the sitemap, and allowed to be indexed. Legal review is still recommended before those words are treated as final. The page says last updated October 15, 2026. Removal is `matt@chieflyos.com`.
 
-While `LAUNCH` is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap.
+While `LAUNCH` is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap. Footer links marked `data-launch-link` (Download, Welcome, Terms, Support) stay hidden until `launch.js` adds `launched` on the `html` element.
+
+The homepage does not show a film until the video file exists. There is no “Not up yet” slot.
 
 - `/download`: the button for this computer, the warning steps, system requirements as TBD
 - `/welcome`: after purchase
