@@ -4,7 +4,7 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Files
 
-- `index.html`: the homepage copy, including founder’s pricing and the ask-before demo.
+- `index.html`: the homepage copy, including founder’s pricing, the ask-before demo, and a note from Matthew, signed Matthew.
 - `paper/index.html`: placeholder for the philosophy paper (`/paper`).
 - `llms.txt`: a short description for answer engines. Outcomes only.
 - `styles.css`: the look (colours and easing at the top).
