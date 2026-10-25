@@ -16,9 +16,11 @@ const ramp = (a, b, v) => {
 };
 const rgb = (a, b, t) => `rgb(${Math.round(mix(a[0], b[0], t))},${Math.round(mix(a[1], b[1], t))},${Math.round(mix(a[2], b[2], t))})`;
 
-const DIM = [58, 58, 60];
-const LIT = [245, 245, 247];
-const PAST = [134, 134, 139];
+const DIM = [110, 103, 92];
+const LIT = [26, 26, 26];
+const PAST = [92, 86, 76];
+const DOT_DIM = [126, 154, 134];
+const DOT_LIT = [45, 90, 61];
 
 // ---------- start-up screen ----------
 function startUp() {
@@ -40,13 +42,14 @@ function startUp() {
 }
 
 // ---------- the mark ----------
-// Drawn on a 400×400 space. power 0 = the C in dim grey, 1 = white stroke and a lit cyan stop.
+// Drawn on a 400×400 space. power 0 = a quiet ink C, 1 = near-black stroke and a deep green stop.
 class Reactor {
   constructor(canvas, power) {
     this.canvas = canvas;
     this.g = canvas.getContext("2d");
     this.power = power;
-    this.live = canvas.hasAttribute("data-live") && !reduce;
+    // The analog mark does not pulse. data-live used to breathe a glow.
+    this.live = false;
     this.visible = false;
     this.raf = 0;
     this.last = 0;
@@ -98,11 +101,11 @@ class Reactor {
   tick(t) {
     const dt = Math.min(64, t - this.last);
     this.last = t;
-    this.draw(t, dt);
+    this.draw();
     this.raf = this.live && this.visible && !document.hidden ? requestAnimationFrame(this.tick) : 0;
   }
 
-  draw(t) {
+  draw() {
     const { g, canvas, power: p } = this;
     const s = canvas.width / 400;
     g.setTransform(s, 0, 0, s, 0, 0);
@@ -112,18 +115,6 @@ class Reactor {
     const k = 5.15;
     const ox = 200 - 32 * k;
     const oy = 200 - 32 * k;
-    const breathe = 1 + 0.045 * Math.sin((t / 4800) * Math.PI * 2) * (this.live ? lit : 0);
-    const sx = ox + 44 * k;
-    const sy = oy + 56 * k;
-    const glow = 72 * breathe;
-    const grad = g.createRadialGradient(sx, sy, 0, sx, sy, glow);
-    grad.addColorStop(0, `rgba(224,248,255,${(0.55 * lit).toFixed(3)})`);
-    grad.addColorStop(0.22, `rgba(56,214,255,${(0.28 * lit).toFixed(3)})`);
-    grad.addColorStop(1, "rgba(56,214,255,0)");
-    g.fillStyle = grad;
-    g.beginPath();
-    g.arc(sx, sy, glow, 0, Math.PI * 2);
-    g.fill();
 
     g.save();
     g.translate(ox, oy);
@@ -140,7 +131,7 @@ class Reactor {
     g.bezierCurveTo(14, 49, 22, 56, 33, 56);
     g.lineTo(44, 56);
     g.stroke();
-    g.fillStyle = `rgba(56,214,255,${mix(0.2, 1, lit).toFixed(3)})`;
+    g.fillStyle = rgb(DOT_DIM, DOT_LIT, lit);
     g.beginPath();
     g.arc(44, 56, 5.5, 0, Math.PI * 2);
     g.fill();
