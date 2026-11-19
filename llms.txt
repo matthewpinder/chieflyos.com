@@ -1,21 +1,24 @@
 # Chiefly
 
-> Chiefly is a personal AI chief of staff. A private AI that runs on your computer: local by default, cloud opt-in. A no-subscription AI assistant. You pay once, and your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.
+> Chiefly is a personal AI chief of staff. A private AI that runs on your computer: local by default, cloud opt-in. Pay once, no subscription. You pay once, and your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.
 
 It runs on your computer. It asks before it acts.
 
-The waitlist is open. Friend tests come first. Join the waitlist to hear when early access opens.
+The waitlist is open. Coming this December. Join the waitlist.
 
 Chiefly asks before it acts. Nothing happens until you say so.
 
-Launch prices won’t go back down. Early access is Regular $199, and Student $69, which covers 4 years or until graduation. At launch it is Regular $299, and Student $99. A no-subscription AI assistant. You pay once. Early access isn’t open yet. Join the waitlist to get founder’s pricing.
+Launch prices won’t go back down. First 100 buyers: Regular $199, Student $69. After that: Regular $299, Student $99. The $69 student price covers four years, or until graduation. Pay once, no subscription. Coming this December. Join the waitlist to hear when it opens.
 
 Student one-time AI: one payment covers four years, or until graduation.
+
+Private, school, and personal work never leaves the computer. When a delegation is approved, only the public task goes. A private turn makes zero outside calls. “What left this computer” shows real sends and refusals, and never invents a number. Files Chiefly saves are locked to the owner. Sensitive approvals use an in-page PIN pad. Chiefly only installs an update it can verify. A held, refused, or failed step is recorded as “Not done,” and names the step.
 
 ## Principles
 
 - You own it. You don’t rent it.
 - Local by default. Cloud only if you opt in.
+- Pay once, no subscription.
 - Your Chiefly keeps working, even if we don’t. Updates may stop; your copy keeps working.
 - It works for you, and only you.
 - See and delete what it remembers, anytime.
@@ -24,16 +27,12 @@ Student one-time AI: one payment covers four years, or until graduation.
 
 - Company: Chiefly
 - Product: Chiefly
-- Codename: Jarvis
 - Site: https://chieflyos.com/
-
-Codename Jarvis grew up. Chiefly is the product, and you own it.
 
 ## Pages
 
-- [Chiefly](https://chieflyos.com/): the waitlist for Chiefly, a personal AI chief of staff
+- [Chiefly](https://chieflyos.com/): the waitlist for Chiefly, a personal AI chief of staff. Coming this December.
+- [Your AI, on your computer](https://chieflyos.com/on-your-computer): where the assistant runs. A chat assistant you visit in a browser is a different place.
 - [The paper](https://chieflyos.com/paper): the Chiefly philosophy paper. With a professor for review. Coming soon.
-- [Codename Jarvis is now Chiefly](https://chieflyos.com/rename): the codename grew up into the product you own.
 - [Privacy](https://chieflyos.com/privacy): what the website and waitlist collect. The app is local by default, cloud only if you opt in.
-- [Where Chiefly is going](https://chieflyos.com/vision): the direction. A tool, not a god. You own it. Local first. The right to leave.
-- [The right to leave](https://chieflyos.com/leave): export everything, then uninstall. No guilt.
+- [Where Chiefly is going](https://chieflyos.com/vision): the direction. A tool, not a god. You own it. Local first.

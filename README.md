@@ -4,7 +4,7 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Files
 
-- `index.html`: the homepage copy, including founder’s pricing, the ask-before demo, and a note from Matthew, signed Matthew.
+- `index.html`: the homepage copy, including the price section, the Receipts section, the ask-before demo, and a note from Matthew, signed Matthew.
 - `paper/index.html`: placeholder for the philosophy paper (`/paper`).
 - `llms.txt`: a short description for answer engines. Outcomes only.
 - `styles.css`: the look (colours and easing at the top).
@@ -18,11 +18,11 @@ The waitlist site for **Chiefly**. Plain HTML, CSS and JavaScript: no framework,
 
 ## Sign-ups
 
-The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, `paper` on `/paper`, `rename` on `/rename`, and `vision` on `/vision`. The migrations in this repo do not put a check constraint on `source`.
+The form posts `{ email, source }` to the `waitlist` table in the Supabase project `lvypvstiaqwjtprhjmdo`. `source` is `hero` or `final` on the homepage, `paper` on `/paper`, and `vision` on `/vision`. The migrations in this repo do not put a check constraint on `source`. `/rename` redirects home and has no form.
 
 Mac, Windows, or Both is optional and starts with nothing selected. When someone picks one, the row also gets `platform` as `mac`, `windows`, or `both`.
 
-When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `utm_campaign`, and `utm_content`. Each is trimmed to 200 characters. Empty values are left off. The `/paper` form always sends `utm_content` as `paper`, so a link with a different `utm_content` does not replace that tag. The other three still come from the URL.
+When the page URL has them, the same row also gets `utm_source`, `utm_medium`, `utm_campaign`, and `utm_content`. Each is trimmed to 200 characters. Empty values are left off. The `/paper` form always sends `utm_content` as `paper`, and the `/vision` form always sends `vision`, so a link with a different `utm_content` does not replace that tag. The other three still come from the URL.
 
 `referrer` is the site that linked here: origin and path only, trimmed to 500 characters. The query string is dropped, so a token in the referring URL is not stored.
 
@@ -34,7 +34,7 @@ If `utm_medium`, `utm_campaign`, `referrer`, `platform`, or `build_with_me` are 
 
 To see sign-ups, open that project in the Supabase dashboard, then Table Editor → `waitlist`.
 
-The headline is “All clear.” After a sign-up the page says “You’re on the list. The first 100 buyers become founders and keep early pricing.” and offers a button that copies `https://chieflyos.com/?utm_source=referral`.
+The headline is “All clear.” After a sign-up the page says “You’re on the list. We’ll tell you when it opens.” and offers a button that copies `https://chieflyos.com/?utm_source=referral`. Joining the waitlist does not lock a price.
 
 ## SQL to run before the new fields will store
 
@@ -96,23 +96,23 @@ Existing insert policies cover the new columns. Sign-ups are a direct insert. Th
 
 ## Homepage slots
 
-Founder’s pricing is the section “Launch prices won’t go back down.” Early access is Regular $199 / Student $69. At launch it is Regular $299 / Student $99. There is no buy button.
+The price section is “Launch prices won’t go back down.” First 100 buyers: Regular $199 / Student $69. After that: Regular $299 / Student $99. The same line appears wherever a price appears. There is no buy button. The waitlist does not reserve the first-100 price.
 
 The ask-before demo is `#boundary`. It is a sample request, “Send the follow-up email to Sam?”, with Approve, Refuse, and Reset. Nothing is sent. It does not use the network.
 
 “How install works” is the four steps under the hero. It describes the path. It is not a download button, and it does not link to `/download` while that page is hidden.
 
-Launch day on the page is Monday, November 16, 2026. The line sits above each waitlist form. The date is in the HTML. The days-left text is added in the browser, from local midnight on that Monday, and it does not tick every second. With reduced motion it is set once. After that day the extra text is cleared. This is not a sale.
+Timing on the page is “Coming this December”. The line sits above each waitlist form. There is no date and no countdown. `launchWhen()` in `app.js` leaves any countdown node blank.
 
-After someone joins, the thank-you says “You’re on the list. The first 100 buyers become founders and keep early pricing.” It does not show how many spots are left.
+After someone joins, the thank-you says “You’re on the list. We’ll tell you when it opens.” It does not show how many spots are left, and it does not say the first 100 keep a price.
 
 `testimonials.js` is the only place quotes go. The list is empty. The homepage section stays hidden until an item has both a `quote` and a `name` from a real person. Do not invent either.
 
-`/rename` is “Codename Jarvis is now Chiefly.” The footer links to it. It is not in the hero.
+`/rename` is a meta refresh to the homepage, so an old link does not 404. It is not in the menu or the footer. `/local-chatgpt-alternative` is the same kind of refresh, to `/on-your-computer` (“Your AI, on your computer”). The old share images for those two URLs are gone.
 
 `/paper` is a coming-soon page for the philosophy paper, which is with a professor for review. Its form is tagged `utm_content=paper`.
 
-`/vision` is where Chiefly is going. No dates. `/leave` is the right to leave: export, then uninstall. Both are public. The logo menu includes Vision and Leave.
+`/vision` is where Chiefly is going. No dates. It is public. The logo menu includes Vision. `/leave` is the right to leave: export, then uninstall. It stays off the menu until launch.
 
 ## The LAUNCH flag
 
@@ -120,7 +120,9 @@ After someone joins, the thank-you says “You’re on the list. The first 100 b
 
 `/privacy` is already public. The waitlist collects emails, so the page is linked in the footer and under each form, listed in the sitemap, and allowed to be indexed. Legal review is still recommended before those words are treated as final. The page says last updated October 15, 2026. Removal is `matt@chieflyos.com`.
 
-While `LAUNCH` is false, these pages are built and can be opened by address, and they are not linked from the site. They are `noindex`, and they are not in the sitemap. Footer links marked `data-launch-link` (Download, Welcome, Terms, Support) stay hidden until `launch.js` adds `launched` on the `html` element.
+While `LAUNCH` is false, Download, Welcome, Terms, and Support are built and are not linked from the site. Leave is the same: unlinked, `noindex`, and not in the sitemap. Footer and menu links marked `data-launch-link` (Download, Welcome, Terms, Support, Leave) stay hidden until `launch.js` adds `launched` on the `html` element.
+
+`/welcome`, `/download`, `/terms`, and `/leave` also redirect home while `LAUNCH` is false. `launch.js` is loaded without `defer` on those four pages and calls `location.replace("/")`. Each page has `noindex` and a `<noscript>` refresh for browsers with JavaScript off. The pages are not deleted. On launch day, remove `noindex` and the noscript refresh, then set `LAUNCH` to true. Until then, a visitor with JavaScript never sees the unfinished copy.
 
 The homepage does not show a film until the video file exists. There is no “Not up yet” slot.
 
@@ -129,11 +131,11 @@ The homepage does not show a film until the video file exists. There is no “No
 - `/terms`: plain language. Legal review needed before it is public.
 - `/support`: contact and bug reports both go to `matt@chieflyos.com`
 
-`/leave` is already public. It is in the logo menu, the footer, the sitemap, and it can be indexed. Contact there is `matt@chieflyos.com`.
+`/leave` is hidden with the other unfinished pages until `LAUNCH` is true. Contact there is `matt@chieflyos.com`. The vision page still says you can export and uninstall. Its link to `/leave` is a `data-launch-link`, so it appears when the page is public.
 
 Set `LAUNCH` to `true` on launch day. Every link whose text is exactly “Join the waitlist” becomes “Get Chiefly”. Paste the Gumroad link into `GET_URL`. Until that link exists, Get Chiefly opens `/download`. The email form button stays “Join the waitlist”, because it still saves an email. A “Privacy” link is not switched.
 
-The same switch shows the footer links Download, Welcome, Terms, and Support. They are in the HTML with `hidden` until then. Privacy and Leave are already shown.
+The same switch shows the footer links Download, Welcome, Terms, Support, and Leave. They are in the HTML with `hidden` until then. Privacy is already shown.
 
 Also, before you call the remaining pages public: remove `noindex` on each one, add them to `sitemap.xml`, and replace `[date of merge]` on `/terms`. Contact and bug reports already go to `matt@chieflyos.com`.
 

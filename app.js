@@ -219,7 +219,7 @@ function reveals() {
 // ---------- waitlist ----------
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SAY = {
-  done: "You’re on the list. The first 100 buyers become founders and keep early pricing.",
+  done: "You’re on the list. We’ll tell you when it opens.",
   dup: "You’re already on the list. We’ll be in touch.",
   empty: "Add your email to join.",
   bad: "That email doesn’t look right.",
@@ -549,29 +549,12 @@ function siteMenu() {
   });
 }
 
-// ---------- launch day (local midnight, Monday 16 November 2026) ----------
+// Timing copy is "Coming this December", in the HTML.
+// Any countdown node is left blank. There is no date to count toward.
 function launchWhen() {
-  const nodes = document.querySelectorAll("[data-launch-left]");
-  if (!nodes.length) return;
-  const start = new Date(2026, 10, 16, 0, 0, 0, 0);
-  const paint = () => {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const day = new Date(2026, 10, 16);
-    let text = "";
-    if (today.getTime() === day.getTime()) text = "Today";
-    else if (now < start) {
-      const ms = start - now;
-      const days = Math.floor(ms / 86400000);
-      const hours = Math.floor((ms % 86400000) / 3600000);
-      if (days >= 1) text = days === 1 ? "1 day" : days + " days";
-      else if (hours >= 1) text = hours === 1 ? "1 hour" : hours + " hours";
-      else text = "Less than an hour";
-    }
-    nodes.forEach((n) => { n.textContent = text; });
-  };
-  paint();
-  if (!reduce) setInterval(paint, 60000);
+  document.querySelectorAll("[data-launch-left]").forEach((n) => {
+    n.textContent = "";
+  });
 }
 
 // ---------- quotes: nothing until testimonials.js has real ones ----------
